@@ -1,0 +1,19 @@
+{% extends 'menu/base.html' %}
+{% load static %}
+
+{% block title %}Welcome to Untitled{% endblock %}
+
+{% block content %}
+<section class="home">
+    <h2>Welcome to Untitled!</h2>
+    <p>Discover our delicious menu and enjoy your time with us!</p>
+
+    <!-- Menu Buttons -->
+    <div class="buttons">
+        <a href="{% url 'menu:coffee' %}" class="menu-btn">☕ Coffee</a>
+        <a href="{% url 'menu:toasts' %}" class="menu-btn">🥪 Toasts</a>
+        <a href="{% url 'menu:sweets' %}" class="menu-btn">🍰 Sweets</a>
+    </div>
+</section>
+{% endblock %}
+

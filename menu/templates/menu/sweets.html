@@ -1,0 +1,23 @@
+{% extends 'menu/base.html' %}
+{% load static %}
+
+{% block title %}Sweets Menu{% endblock %}
+
+{% block content %}
+<section class="menu">
+    <h2>Sweets Menu</h2>
+    <div class="items">
+        {% for sweet in sweets %}
+        <div class="item-card">
+            <img src="{{ sweet.image.url }}" alt="{{ sweet.name }}">
+            <h3>{{ sweet.name }}</h3>
+            <p>{{ sweet.description }}</p>
+            <p><strong>Ingredients:</strong> {{ sweet.ingredients }}</p>
+            <p><strong>Preparation:</strong> {{ sweet.preparation }}</p>
+        </div>
+        {% empty %}
+        <p>No sweets available at the moment.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

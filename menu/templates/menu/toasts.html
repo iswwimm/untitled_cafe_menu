@@ -1,0 +1,23 @@
+{% extends 'menu/base.html' %}
+{% load static %}
+
+{% block title %}Toast Menu{% endblock %}
+
+{% block content %}
+<section class="menu">
+    <h2>Toast Menu</h2>
+    <div class="items">
+        {% for toast in toasts %}
+        <div class="item-card">
+            <img src="{{ toast.image.url }}" alt="{{ toast.name }}">
+            <h3>{{ toast.name }}</h3>
+            <p>{{ toast.description }}</p>
+            <p><strong>Ingredients:</strong> {{ toast.ingredients }}</p>
+            <p><strong>Preparation:</strong> {{ toast.preparation }}</p>
+        </div>
+        {% empty %}
+        <p>No toasts available at the moment.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

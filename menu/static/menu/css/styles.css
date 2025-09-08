@@ -1,0 +1,315 @@
+/* ===================== */
+/* Базові стилі */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('../images/cafe-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+header, footer {
+    background-color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* ===================== */
+/* Головна сторінка */
+.home {
+    text-align: center;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    max-width: 800px;
+    border-radius: 15px;
+}
+
+.home h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.home p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Кнопки */
+.home .buttons {
+    display: flex;
+    flex-direction: column; /* вертикально на мобільних */
+    gap: 15px;
+    align-items: center;
+}
+
+.home .buttons a {
+    display: block;
+    width: 80%; /* більш зручна ширина для пальців */
+    padding: 15px 0;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #fff;
+    background-color: #6b4226;
+    border-radius: 12px;
+    transition: transform 0.2s, background 0.3s;
+    text-align: center;
+}
+
+.home .buttons a:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
+}
+
+/* Адаптивність для маленьких екранів */
+@media (max-width: 480px) {
+    .home {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .home h2 {
+        font-size: 1.6rem;
+    }
+
+    .home p {
+        font-size: 1rem;
+    }
+
+    .home .buttons a {
+        width: 90%;
+        font-size: 1.1rem;
+        padding: 12px 0;
+    }
+}
+
+/* ===================== */
+/* Карточки меню */
+.menu {
+    text-align: center;
+    padding: 20px;
+}
+
+.menu h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.item-card {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    padding: 15px;
+    width: 250px;
+    text-align: center;
+}
+
+.item-card img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.item-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.item-card p {
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+}
+
+.menu-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #6b4226;
+    border-radius: 10px;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.menu-btn:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
+}
+
+/* Адаптивність для телефонів */
+@media (max-width: 480px) {
+    .items {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .item-card {
+        width: 90%;
+        margin-bottom: 15px;
+    }
+}
+
+
+/* ===================== */
+/* Staff Dashboard */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #6b4226;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 10px 0;
+    transition: transform 0.2s, background 0.3s;
+}
+
+ul li a:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
+}
+
+/* ===================== */
+/* Адаптивність */
+@media (max-width: 768px) {
+    .menu-items {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu-item {
+        width: 90%;
+    }
+
+    .home .buttons a {
+        display: block;
+        width: 80%;
+        font-size: 1.1rem;
+        padding: 12px 0;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .home h2 {
+        font-size: 1.5rem;
+    }
+
+    .home p {
+        font-size: 1rem;
+    }
+
+    .qr-section .qr-code {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .qr-section .qr-code {
+        width: 120px;
+        height: 120px;
+    }
+
+    .home .buttons a {
+        font-size: 1rem;
+        padding: 10px 0;
+    }
+
+    .home h2 {
+        font-size: 1.3rem;
+    }
+
+    .home p {
+        font-size: 0.95rem;
+    }
+
+    .menu-item img {
+        height: 120px;
+    }
+}
+
+/* ===================== */
+/* Staff Dashboard */
+.dashboard {
+    text-align: center;
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+}
+
+.dashboard h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.dashboard p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.dashboard-btn {
+    display: block;
+    width: 80%;
+    padding: 12px 0;
+    text-decoration: none;
+    color: #fff;
+    background-color: #6b4226;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    transition: transform 0.2s, background 0.3s;
+    text-align: center;
+}
+
+.dashboard-btn:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
+}
+
+/* Адаптивність для маленьких екранів */
+@media (max-width: 480px) {
+    .dashboard h2 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard p {
+        font-size: 0.95rem;
+    }
+
+    .dashboard-btn {
+        width: 90%;
+        font-size: 1rem;
+        padding: 10px 0;
+    }
+}

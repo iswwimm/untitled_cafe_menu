@@ -1,0 +1,24 @@
+{% extends 'menu/base.html' %}
+{% load static %}
+
+{% block title %}Coffee Menu{% endblock %}
+
+{% block content %}
+<section class="menu">
+    <h2>Coffee Menu</h2>
+    <div class="items">
+        {% for coffee in coffees %}
+        <div class="item-card">
+            <img src="{{ coffee.image.url }}" alt="{{ coffee.name }}">
+            <h3>{{ coffee.name }}</h3>
+            <p>{{ coffee.description }}</p>
+            <p><strong>Ingredients:</strong> {{ coffee.ingredients }}</p>
+            <p><strong>Milk options:</strong> {{ coffee.milk_options }}</p>
+            <p><strong>Preparation:</strong> {{ coffee.preparation }}</p>
+        </div>
+        {% empty %}
+        <p>No coffees available at the moment.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

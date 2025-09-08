@@ -1,0 +1,12 @@
+{% extends 'menu/base.html' %}
+{% block title %}{{ category|title }} Form{% endblock %}
+
+{% block content %}
+<h2>{{ category|title }} Form</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'modifiers:dashboard' %}">Back to Dashboard</a>
+{% endblock %}
