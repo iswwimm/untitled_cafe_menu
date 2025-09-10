@@ -9,11 +9,12 @@
     <div class="items">
         {% for sweet in sweets %}
         <div class="item-card">
-            <img src="{{ sweet.image.url }}" alt="{{ sweet.name }}">
             <h3>{{ sweet.name }}</h3>
+            <img src="{{ sweet.image.url }}" alt="{{ sweet.name }}">
             <p>{{ sweet.description }}</p>
             <p><strong>Ingredients:</strong> {{ sweet.ingredients }}</p>
-            <p><strong>Preparation:</strong> {{ sweet.preparation }}</p>
+            <p><strong>Allergens:</strong> {{ sweet.allergens }}</p>
+            <p><strong>Price:</strong> {{ sweet.price }}₴</p>
         </div>
         {% empty %}
         <p>No sweets available at the moment.</p>

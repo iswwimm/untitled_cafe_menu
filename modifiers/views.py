@@ -1,85 +1,100 @@
-# modifiers/views.py
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import render, get_object_or_404, redirect
 from menu.models import Coffee, Toast, Sweet
 from .forms import CoffeeForm, ToastForm, SweetForm
 
-def staff_check(user):
-    return user.is_staff
-
-@login_required
-@user_passes_test(staff_check)
+# ---------------- Dashboard ----------------
 def dashboard(request):
-    coffees = Coffee.objects.all()
-    toasts = Toast.objects.all()
-    sweets = Sweet.objects.all()
-    return render(request, 'modifiers/dashboard.html', {
-        'coffees': coffees,
-        'toasts': toasts,
-        'sweets': sweets
-    })
+    sections = [
+        {'category': 'coffee', 'items': Coffee.objects.all()},
+        {'category': 'toast', 'items': Toast.objects.all()},
+        {'category': 'sweet', 'items': Sweet.objects.all()},
+    ]
+    return render(request, 'modifiers/dashboard.html', {'sections': sections})
 
-@login_required
-@user_passes_test(staff_check)
-def add_item(request, category):
-    if category == 'coffee':
-        form_class = CoffeeForm
-    elif category == 'toast':
-        form_class = ToastForm
-    elif category == 'sweet':
-        form_class = SweetForm
-    else:
-        return redirect('modifiers:dashboard')
 
+# ---------------- Coffee CRUD ----------------
+def add_coffee(request):
     if request.method == 'POST':
-        form = form_class(request.POST, request.FILES)
+        form = CoffeeForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('modifiers:dashboard')
     else:
-        form = form_class()
+        form = CoffeeForm()
+    return render(request, 'modifiers/item_form.html', {'form': form, 'title': 'Add Coffee'})
 
-    return render(request, 'modifiers/item_form.html', {'form': form, 'category': category})
-
-@login_required
-@user_passes_test(staff_check)
-def edit_item(request, category, pk):
-    if category == 'coffee':
-        item = get_object_or_404(Coffee, pk=pk)
-        form_class = CoffeeForm
-    elif category == 'toast':
-        item = get_object_or_404(Toast, pk=pk)
-        form_class = ToastForm
-    elif category == 'sweet':
-        item = get_object_or_404(Sweet, pk=pk)
-        form_class = SweetForm
-    else:
-        return redirect('modifiers:dashboard')
-
+def edit_coffee(request, pk):
+    coffee = get_object_or_404(Coffee, pk=pk)
     if request.method == 'POST':
-        form = form_class(request.POST, request.FILES, instance=item)
+        form = CoffeeForm(request.POST, instance=coffee)
         if form.is_valid():
             form.save()
             return redirect('modifiers:dashboard')
     else:
-        form = form_class(instance=item)
+        form = CoffeeForm(instance=coffee)
+    return render(request, 'modifiers/item_form.html', {'form': form, 'title': 'Edit Coffee'})
 
-    return render(request, 'modifiers/item_form.html', {'form': form, 'category': category, 'item': item})
-
-@login_required
-@user_passes_test(staff_check)
-def delete_item(request, category, pk):
-    if category == 'coffee':
-        item = get_object_or_404(Coffee, pk=pk)
-    elif category == 'toast':
-        item = get_object_or_404(Toast, pk=pk)
-    elif category == 'sweet':
-        item = get_object_or_404(Sweet, pk=pk)
-    else:
-        return redirect('modifiers:dashboard')
-
+def delete_coffee(request, pk):
+    coffee = get_object_or_404(Coffee, pk=pk)
     if request.method == 'POST':
-        item.delete()
+        coffee.delete()
         return redirect('modifiers:dashboard')
+    return render(request, 'modifiers/item_confirm_delete.html', {'object': coffee, 'title': 'Delete Coffee'})
 
-    return render(request, 'modifiers/confirm_delete.html', {'item': item, 'category': category})
+# ---------------- Toast CRUD ----------------
+def add_toast(request):
+    if request.method == 'POST':
+        form = ToastForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('modifiers:dashboard')
+    else:
+        form = ToastForm()
+    return render(request, 'modifiers/item_form.html', {'form': form, 'title': 'Add Toast'})
+
+def edit_toast(request, pk):
+    toast = get_object_or_404(Toast, pk=pk)
+    if request.method == 'POST':
+        form = ToastForm(request.POST, request.FILES, instance=toast)
+        if form.is_valid():
+            form.save()
+            return redirect('modifiers:dashboard')
+    else:
+        form = ToastForm(instance=toast)
+    return render(request, 'modifiers/item_form.html', {'form': form, 'title': 'Edit Toast'})
+
+def delete_toast(request, pk):
+    toast = get_object_or_404(Toast, pk=pk)
+    if request.method == 'POST':
+        toast.delete()
+        return redirect('modifiers:dashboard')
+    return render(request, 'modifiers/item_confirm_delete.html', {'object': toast, 'title': 'Delete Toast'})
+
+# ---------------- Sweet CRUD ----------------
+def add_sweet(request):
+    if request.method == 'POST':
+        form = SweetForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('modifiers:dashboard')
+    else:
+        form = SweetForm()
+    return render(request, 'modifiers/item_form.html', {'form': form, 'title': 'Add Sweet'})
+
+def edit_sweet(request, pk):
+    sweet = get_object_or_404(Sweet, pk=pk)
+    if request.method == 'POST':
+        form = SweetForm(request.POST, request.FILES, instance=sweet)
+        if form.is_valid():
+            form.save()
+            return redirect('modifiers:dashboard')
+    else:
+        form = SweetForm(instance=sweet)
+    return render(request, 'modifiers/item_form.html', {'form': form, 'title': 'Edit Sweet'})
+
+def delete_sweet(request, pk):
+    sweet = get_object_or_404(Sweet, pk=pk)
+    if request.method == 'POST':
+        sweet.delete()
+        return redirect('modifiers:dashboard')
+    return render(request, 'modifiers/item_confirm_delete.html', {'object': sweet, 'title': 'Delete Sweet'})

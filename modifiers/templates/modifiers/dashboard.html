@@ -1,7 +1,5 @@
-
 {% extends 'menu/base.html' %}
 {% load static %}
-{% block title %}Dashboard{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'modifiers/css/dashboard.css' %}">
@@ -9,65 +7,39 @@
 
 {% block content %}
 <div class="dashboard-container">
-
     <h2>Staff Dashboard</h2>
 
-    <!-- Coffee Section -->
+    {% for section in sections %}
     <div class="dashboard-section">
-        <h3>Coffee</h3>
-        <a href="{% url 'modifiers:add_item' 'coffee' %}" class="btn add-btn">Add Coffee</a>
-        <ul class="item-list">
-            {% for coffee in coffees %}
-            <li class="item">
-                <span>{{ coffee.name }}</span>
-                <div class="actions">
-                    <a href="{% url 'modifiers:edit_item' 'coffee' coffee.pk %}" class="btn">Edit</a>
-                    <a href="{% url 'modifiers:delete_item' 'coffee' coffee.pk %}" class="btn">Delete</a>
-                </div>
-            </li>
-            {% empty %}
-            <li class="item">No coffee items.</li>
-            {% endfor %}
-        </ul>
-    </div>
+        <h3>{{ section.category|capfirst }}</h3>
+        <a href="{% url 'modifiers:add_'|add:section.category %}" class="btn add-btn">
+            Add {{ section.category|capfirst }}
+        </a>
 
-    <!-- Toast Section -->
-    <div class="dashboard-section">
-        <h3>Toasts</h3>
-        <a href="{% url 'modifiers:add_item' 'toast' %}" class="btn add-btn">Add Toast</a>
         <ul class="item-list">
-            {% for toast in toasts %}
+            {% for item in section.items %}
             <li class="item">
-                <span>{{ toast.name }}</span>
-                <div class="actions">
-                    <a href="{% url 'modifiers:edit_item' 'toast' toast.pk %}" class="btn">Edit</a>
-                    <a href="{% url 'modifiers:delete_item' 'toast' toast.pk %}" class="btn">Delete</a>
-                </div>
-            </li>
-            {% empty %}
-            <li class="item">No toast items.</li>
-            {% endfor %}
-        </ul>
-    </div>
+                {% if item.image %}
+                <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
+                {% endif %}
 
-    <!-- Sweets Section -->
-    <div class="dashboard-section">
-        <h3>Sweets</h3>
-        <a href="{% url 'modifiers:add_item' 'sweet' %}" class="btn add-btn">Add Sweet</a>
-        <ul class="item-list">
-            {% for sweet in sweets %}
-            <li class="item">
-                <span>{{ sweet.name }}</span>
+                {% if section.category == 'coffee' %}
+                <span>{{ item.name }} — {{ item.price }}₴ — {{ item.display_volumes }} — {{ item.get_temperature_display }}</span>
+                {% else %}
+                <span>{{ item.name }}</span>
+                {% endif %}
+
                 <div class="actions">
-                    <a href="{% url 'modifiers:edit_item' 'sweet' sweet.pk %}" class="btn">Edit</a>
-                    <a href="{% url 'modifiers:delete_item' 'sweet' sweet.pk %}" class="btn">Delete</a>
+                    <a href="{% url 'modifiers:edit_'|add:section.category item.pk %}" class="btn">Edit</a>
+                    <a href="{% url 'modifiers:delete_'|add:section.category item.pk %}" class="btn">Delete</a>
                 </div>
             </li>
             {% empty %}
-            <li class="item">No sweet items.</li>
+            <li class="item">No {{ section.category }} items.</li>
             {% endfor %}
         </ul>
     </div>
+    {% endfor %}
 
 </div>
 {% endblock %}

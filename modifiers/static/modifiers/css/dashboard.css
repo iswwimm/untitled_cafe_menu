@@ -1,6 +1,4 @@
 /* dashboard.css */
-
-/* Контейнер Dashboard */
 .dashboard-container {
     max-width: 900px;
     margin: 20px auto;
@@ -11,29 +9,19 @@
     font-family: 'Arial', sans-serif;
 }
 
-/* Заголовки */
 .dashboard-container h2 {
     text-align: center;
     color: #6b4226;
     margin-bottom: 25px;
 }
 
-.dashboard-container h3 {
-    color: #6b4226;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-/* Секції Dashboard */
 .dashboard-section {
     margin-bottom: 30px;
 }
 
-/* Список елементів */
 .item-list {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .item-list .item {
@@ -51,12 +39,10 @@
     background-color: #f5f0eb;
 }
 
-/* Дії (Edit/Delete) */
 .actions a {
     margin-left: 8px;
 }
 
-/* Кнопки */
 .btn {
     background-color: #6b4226;
     color: #fff;
@@ -72,31 +58,46 @@
     transform: scale(1.05);
 }
 
-/* Кнопка Add */
 .add-btn {
     display: inline-block;
     margin-bottom: 10px;
 }
 
-/* Адаптивність для мобільних */
-@media screen and (max-width: 600px) {
-    .dashboard-container {
-        margin: 10px;
-        padding: 10px;
-    }
+.thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 10px;
+}
 
+.hidden {
+    display: none;
+}
+
+#image-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+
+@media screen and (max-width: 600px) {
     .item-list .item {
         flex-direction: column;
         align-items: flex-start;
     }
-
-    .actions {
+    .actions a {
         margin-top: 6px;
+        margin-left: 0;
     }
-
     .btn {
         width: 100%;
         text-align: center;
         margin-bottom: 6px;
     }
 }
+
+

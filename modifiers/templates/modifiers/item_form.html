@@ -1,12 +1,58 @@
 {% extends 'menu/base.html' %}
-{% block title %}{{ category|title }} Form{% endblock %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'modifiers/css/dashboard.css' %}">
+<script>
+function previewImage(input) {
+    const preview = document.getElementById('image-preview');
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+{% endblock %}
 
 {% block content %}
-<h2>{{ category|title }} Form</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
-<a href="{% url 'modifiers:dashboard' %}">Back to Dashboard</a>
+<div class="dashboard-container">
+    <h2>{{ title }}</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div class="field-container">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small>{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p style="color:red;">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if form.image %}
+            <img id="image-preview" class="{% if not form.instance.pk %}hidden{% endif %}"
+                src="{% if form.instance.image %}{{ form.instance.image.url }}{% endif %}" 
+                alt="Image Preview">
+
+            <script>
+                document.getElementById('{{ form.image.id_for_label }}').addEventListener('change', function() {
+                    previewImage(this);
+                });
+            </script>
+        {% endif %}
+
+        <button type="submit" class="btn">{{ title }}</button>
+        <a href="{% url 'modifiers:dashboard' %}" class="btn">Cancel</a>
+    </form>
+</div>
 {% endblock %}

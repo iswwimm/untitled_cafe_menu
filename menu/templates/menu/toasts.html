@@ -9,11 +9,12 @@
     <div class="items">
         {% for toast in toasts %}
         <div class="item-card">
-            <img src="{{ toast.image.url }}" alt="{{ toast.name }}">
             <h3>{{ toast.name }}</h3>
+            <img src="{{ toast.image.url }}" alt="{{ toast.name }}">
             <p>{{ toast.description }}</p>
             <p><strong>Ingredients:</strong> {{ toast.ingredients }}</p>
-            <p><strong>Preparation:</strong> {{ toast.preparation }}</p>
+            <p><strong>Allergens:</strong> {{ toast.allergens }}</p>
+            <p><strong>Price:</strong> {{ toast.price }}₴</p>
         </div>
         {% empty %}
         <p>No toasts available at the moment.</p>

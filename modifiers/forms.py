@@ -1,18 +1,27 @@
-# modifiers/forms.py
 from django import forms
-from menu.models import Coffee, Toast, Sweet
+from menu.models import Coffee, Toast, Sweet, CoffeeVolume
 
 class CoffeeForm(forms.ModelForm):
+    volume = forms.ModelMultipleChoiceField(
+        queryset=CoffeeVolume.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="Available Volumes"
+    )
+
     class Meta:
         model = Coffee
-        fields = '__all__'
+        fields = ['name', 'price', 'volume', 'temperature']
+        widgets = {
+            'temperature': forms.Select(),
+        }
 
 class ToastForm(forms.ModelForm):
     class Meta:
         model = Toast
-        fields = '__all__'
+        fields = ['name', 'image', 'ingredients', 'description', 'allergens', 'price']
 
 class SweetForm(forms.ModelForm):
     class Meta:
         model = Sweet
-        fields = '__all__'
+        fields = ['name', 'image', 'ingredients', 'description', 'allergens', 'price']
