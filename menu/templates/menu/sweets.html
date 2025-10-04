@@ -14,7 +14,7 @@
             <p>{{ sweet.description }}</p>
             <p><strong>Ingredients:</strong> {{ sweet.ingredients }}</p>
             <p><strong>Allergens:</strong> {{ sweet.allergens }}</p>
-            <p><strong>Price:</strong> {{ sweet.price }}₴</p>
+            <p><strong>Price:</strong> {{ sweet.price|floatformat:1 }}</p>
         </div>
         {% empty %}
         <p>No sweets available at the moment.</p>

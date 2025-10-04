@@ -14,7 +14,7 @@
             <p>{{ toast.description }}</p>
             <p><strong>Ingredients:</strong> {{ toast.ingredients }}</p>
             <p><strong>Allergens:</strong> {{ toast.allergens }}</p>
-            <p><strong>Price:</strong> {{ toast.price }}₴</p>
+            <p><strong>Price:</strong> {{ toast.price|floatformat:1 }}</p>
         </div>
         {% empty %}
         <p>No toasts available at the moment.</p>

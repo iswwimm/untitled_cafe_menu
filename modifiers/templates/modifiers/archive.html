@@ -7,36 +7,26 @@
 
 {% block content %}
 <div class="dashboard-container">
-    <h2>Staff Dashboard</h2>
-
-    <p><a href="{% url 'modifiers:archive' %}" class="btn">View Archive</a></p>
+    <h2>Archive</h2>
+    <p><a href="{% url 'modifiers:dashboard' %}" class="btn">Back to Dashboard</a></p>
 
     {% for section in sections %}
     <div class="dashboard-section">
-        <h3>{{ section.name|capfirst }}</h3>
-        <a href="{% url 'modifiers:add_item' section.name %}" class="btn add-btn">Add {{ section.name|capfirst }}</a>
-
+        <h3>{{ section.name|capfirst }} (archived)</h3>
         <ul class="item-list">
             {% for item in section.items %}
             <li class="item">
                 {% if item.image %}
                 <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
                 {% endif %}
-
-                {% if section.name == 'coffee' %}
-                <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }} — {{ item.display_volumes }} — {{ item.get_temperature_display }}</span>
-                {% else %}
                 <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}</span>
-                {% endif %}
-
                 <div class="actions">
-                    <a href="{% url 'modifiers:edit_item' section.name item.pk %}" class="btn">Edit</a>
-                    <a href="{% url 'modifiers:archive_item' section.name item.pk %}" class="btn">Archive</a>
+                    <a href="{% url 'modifiers:restore_item' section.name item.pk %}" class="btn">Restore</a>
                     <a href="{% url 'modifiers:delete_item' section.name item.pk %}" class="btn delete-btn">Delete</a>
                 </div>
             </li>
             {% empty %}
-            <li class="item">No {{ section.name }} items.</li>
+            <li>No archived {{ section.name }} items.</li>
             {% endfor %}
         </ul>
     </div>

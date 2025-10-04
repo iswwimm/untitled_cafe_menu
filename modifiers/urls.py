@@ -5,19 +5,12 @@ app_name = 'modifiers'
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
+    path('archive/', views.archive, name='archive'),
 
-    # Coffee
-    path('coffee/add/', views.add_coffee, name='add_coffee'),
-    path('coffee/edit/<int:pk>/', views.edit_coffee, name='edit_coffee'),
-    path('coffee/delete/<int:pk>/', views.delete_coffee, name='delete_coffee'),
+    path('<str:category>/add/', views.add_item, name='add_item'),
+    path('<str:category>/edit/<int:pk>/', views.edit_item, name='edit_item'),
+    path('<str:category>/delete/<int:pk>/', views.delete_item, name='delete_item'),
 
-    # Toast
-    path('toast/add/', views.add_toast, name='add_toast'),
-    path('toast/edit/<int:pk>/', views.edit_toast, name='edit_toast'),
-    path('toast/delete/<int:pk>/', views.delete_toast, name='delete_toast'),
-
-    # Sweet
-    path('sweet/add/', views.add_sweet, name='add_sweet'),
-    path('sweet/edit/<int:pk>/', views.edit_sweet, name='edit_sweet'),
-    path('sweet/delete/<int:pk>/', views.delete_sweet, name='delete_sweet'),
+    path('<str:category>/archive/<int:pk>/', views.archive_item, name='archive_item'),
+    path('<str:category>/restore/<int:pk>/', views.restore_item, name='restore_item'),
 ]

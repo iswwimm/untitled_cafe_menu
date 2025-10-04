@@ -1,5 +1,6 @@
 from django.contrib import admin
-from menu.models import Coffee, CoffeeVolume, Toast, Sweet
+from django.utils.html import format_html
+from .models import Coffee, CoffeeVolume, Toast, Sweet
 
 @admin.register(CoffeeVolume)
 class CoffeeVolumeAdmin(admin.ModelAdmin):
@@ -7,20 +8,41 @@ class CoffeeVolumeAdmin(admin.ModelAdmin):
 
 @admin.register(Coffee)
 class CoffeeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'display_volumes', 'temperature')
-    list_filter = ('temperature',)
+    list_display = ('name', 'price', 'is_active', 'display_volumes', 'temperature')
+    list_filter = ('is_active', 'temperature')
     search_fields = ('name',)
+    actions = ('make_active', 'make_inactive')
 
-    def display_volumes(self, obj):
-        return ", ".join([v.volume for v in obj.volume.all()])
-    display_volumes.short_description = 'Volumes'
+    def make_active(self, request, queryset):
+        queryset.update(is_active=True)
+    make_active.short_description = "Mark selected as active"
+
+    def make_inactive(self, request, queryset):
+        queryset.update(is_active=False)
+    make_inactive.short_description = "Mark selected as inactive"
+
 
 @admin.register(Toast)
 class ToastAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'allergens', 'price')
-    search_fields = ('name', 'ingredients', 'allergens', 'price')
+    list_display = ('name', 'price', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name', 'ingredients', 'allergens')
+    actions = ('make_active', 'make_inactive')
+
+    def make_active(self, request, queryset):
+        queryset.update(is_active=True)
+    def make_inactive(self, request, queryset):
+        queryset.update(is_active=False)
+
 
 @admin.register(Sweet)
 class SweetAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'allergens', 'price')
-    search_fields = ('name', 'ingredients', 'allergens', 'price')
+    list_display = ('name', 'price', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('name', 'ingredients', 'allergens')
+    actions = ('make_active', 'make_inactive')
+
+    def make_active(self, request, queryset):
+        queryset.update(is_active=True)
+    def make_inactive(self, request, queryset):
+        queryset.update(is_active=False)

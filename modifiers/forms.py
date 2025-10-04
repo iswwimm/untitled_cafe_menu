@@ -11,7 +11,7 @@ class CoffeeForm(forms.ModelForm):
 
     class Meta:
         model = Coffee
-        fields = ['name', 'price', 'volume', 'temperature']
+        fields = ['name', 'price', 'volume', 'temperature', 'is_active']
         widgets = {
             'temperature': forms.Select(),
         }
@@ -19,9 +19,9 @@ class CoffeeForm(forms.ModelForm):
 class ToastForm(forms.ModelForm):
     class Meta:
         model = Toast
-        fields = ['name', 'image', 'ingredients', 'description', 'allergens', 'price']
+        fields = ['name', 'image', 'ingredients', 'description', 'allergens', 'price', 'is_active']
 
 class SweetForm(forms.ModelForm):
     class Meta:
         model = Sweet
-        fields = ['name', 'image', 'ingredients', 'description', 'allergens', 'price']
+        fields = ['name', 'image', 'ingredients', 'description', 'allergens', 'price', 'is_active']

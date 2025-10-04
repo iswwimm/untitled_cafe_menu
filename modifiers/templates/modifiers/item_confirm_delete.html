@@ -1,15 +1,23 @@
 {% extends 'menu/base.html' %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'modifiers/css/dashboard.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="dashboard-container">
+<div class="form-container">
     <h2>{{ title }}</h2>
-    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <p>Are you sure you want to delete <strong>{{ object.name }}</strong>?</p>
+
+    {% if object.image %}
+    <img src="{{ object.image.url }}" class="thumbnail">
+    {% endif %}
 
     <form method="POST">
         {% csrf_token %}
-        <button type="submit" class="btn" style="background-color:red;">Confirm Delete</button>
-        <a href="{% url 'modifiers:dashboard' %}" class="btn">Cancel</a>
+        <button type="submit" class="btn delete-btn">Yes, Delete</button>
+        <a href="{% url 'modifiers:dashboard' %}" class="btn cancel-btn">Cancel</a>
     </form>
 </div>
 {% endblock %}
