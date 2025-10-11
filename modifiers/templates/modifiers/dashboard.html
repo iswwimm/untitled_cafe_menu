@@ -24,7 +24,7 @@
                 {% endif %}
 
                 {% if section.name == 'coffee' %}
-                <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }} — {{ item.display_volumes }} — {{ item.get_temperature_display }}</span>
+                <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }} — {{ item.get_temperature_display }}</span>
                 {% else %}
                 <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}</span>
                 {% endif %}

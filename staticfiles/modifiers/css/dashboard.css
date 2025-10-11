@@ -1,102 +1,146 @@
-/* dashboard.css */
+/* ---------------- General ---------------- */
+body {
+    font-family: Arial, sans-serif;
+}
 
-/* Контейнер Dashboard */
 .dashboard-container {
     max-width: 900px;
-    margin: 20px auto;
-    padding: 15px 20px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    font-family: 'Arial', sans-serif;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-/* Заголовки */
-.dashboard-container h2 {
+h2 {
     text-align: center;
-    color: #6b4226;
-    margin-bottom: 25px;
-}
-
-.dashboard-container h3 {
-    color: #6b4226;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-/* Секції Dashboard */
-.dashboard-section {
     margin-bottom: 30px;
 }
 
-/* Список елементів */
+.dashboard-section {
+    margin-bottom: 40px;
+}
+
+.dashboard-section h3 {
+    margin-bottom: 10px;
+}
+
+/* ---------------- Buttons ---------------- */
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 2px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    background-color: #3498db;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background-color: #2980b9;
+}
+
+.add-btn {
+    margin-bottom: 10px;
+}
+
+.cancel-btn {
+    background-color: #7f8c8d;
+}
+
+.cancel-btn:hover {
+    background-color: #636e72;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* ---------------- Lists ---------------- */
 .item-list {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .item-list .item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 12px;
-    border-bottom: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 6px;
-    transition: background-color 0.2s;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
 
-.item-list .item:hover {
-    background-color: #f5f0eb;
+.item-list .item span {
+    flex: 1;
+    margin-left: 10px;
 }
 
-/* Дії (Edit/Delete) */
-.actions a {
+.temp-indicator {
+    background-color: #e8f4fd;
+    color: #2980b9;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
     margin-left: 8px;
+    border: 1px solid #b3d9ff;
 }
 
-/* Кнопки */
-.btn {
-    background-color: #6b4226;
-    color: #fff;
-    padding: 6px 12px;
+/* ---------------- Thumbnails ---------------- */
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* ---------------- Form ---------------- */
+.form-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #f2f2f2;
     border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.btn:hover {
-    background-color: #a67853;
-    transform: scale(1.05);
+.form-container form {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Кнопка Add */
-.add-btn {
-    display: inline-block;
+.form-container form input,
+.form-container form select,
+.form-container form textarea {
+    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-container img.thumbnail {
     margin-bottom: 10px;
 }
 
-/* Адаптивність для мобільних */
-@media screen and (max-width: 600px) {
-    .dashboard-container {
-        margin: 10px;
-        padding: 10px;
-    }
-
+/* ---------------- Responsive ---------------- */
+@media (max-width: 600px) {
     .item-list .item {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .actions {
-        margin-top: 6px;
-    }
-
-    .btn {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 6px;
+    .item-list .actions {
+        margin-top: 8px;
     }
 }

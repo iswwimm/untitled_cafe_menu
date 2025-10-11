@@ -1,24 +1,39 @@
 {% extends 'menu/base.html' %}
 {% load static %}
 
-{% block title %}Coffee Menu{% endblock %}
+{% block title %}untitled coffee{% endblock %}
+{% block body_class %}coffee-page{% endblock %}
 
 {% block content %}
-<section class="menu">
-    <h2>Coffee Menu</h2>
-    <div class="items">
+<div class="menu-page">
+    <h1 class="logo">untitled <span>coffee</span></h1>
+
+    <div class="menu-list">
         {% for coffee in coffees %}
-        <div class="item-card">
-            <h3>{{ coffee.name }}</h3>
-            <p>{{ coffee.description }}</p>
-            <p><strong>Preparation:</strong> {{ coffee.preparation }}</p>
-            <p><strong>Temperature:</strong> {{ coffee.get_temperature_display }}</p>
-            <p><strong>Available Volumes:</strong> {{ coffee.display_volumes }}</p>
-            <p><strong>Price:</strong> {{ coffee.price|floatformat:1 }}</p>
-        </div>
+            <div class="menu-item {% if coffee.name == 'drip' %}after-espresso{% elif coffee.name == 'cold brew' %}after-drip{% elif coffee.name == 'plant milk' %}after-cold{% endif %}">
+                <div class="menu-left">
+                    {% if coffee.temperature == 'both' %}
+                        <p class="temp">hot/iced</p>
+                    {% elif coffee.temperature == 'hot' %}
+                        <p class="temp">hot</p>
+                    {% elif coffee.temperature == 'cold' %}
+                        <p class="temp">iced</p>
+                    {% endif %}
+                </div>
+                <div class="menu-center">
+                    <h3>{{ coffee.name }}</h3>
+                </div>
+                <div class="menu-right">
+                    {% if coffee.has_two_prices %}
+                        <p class="price-double">{{ coffee.price_display }} {{ coffee.price_2_display }}</p>
+                    {% else %}
+                        <p>{{ coffee.price_display }}</p>
+                    {% endif %}
+                </div>
+            </div>
         {% empty %}
-        <p>No coffees available at the moment.</p>
+            <p class="empty">No coffee available right now ☕</p>
         {% endfor %}
     </div>
-</section>
+</div>
 {% endblock %}

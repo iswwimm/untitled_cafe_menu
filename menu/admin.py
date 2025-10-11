@@ -1,10 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Coffee, CoffeeVolume, Toast, Sweet
+from .models import Coffee, Toast, Sweet
 
-@admin.register(CoffeeVolume)
-class CoffeeVolumeAdmin(admin.ModelAdmin):
-    list_display = ('volume',)
 
 @admin.register(Coffee)
 class CoffeeAdmin(admin.ModelAdmin):
@@ -12,6 +9,7 @@ class CoffeeAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'temperature')
     search_fields = ('name',)
     actions = ('make_active', 'make_inactive')
+    fields = ('name', 'price', 'temperature', 'image', 'is_active')
 
     def make_active(self, request, queryset):
         queryset.update(is_active=True)

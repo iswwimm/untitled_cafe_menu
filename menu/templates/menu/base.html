@@ -4,22 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Cafe{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'menu/css/styles.css' %}">
+    <title>{% block title %}untitled{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'menu/css/styles.css' %}?v=2">
     {% block extra_head %}{% endblock %}
 </head>
-<body>
-    <header>
-        <h1>Untitled</h1>
-    </header>
-
-    <main>
+<body class="{% block body_class %}{% endblock %}">
+    <main class="wrapper">
+        
         {% block content %}{% endblock %}
     </main>
-
-    <footer>
-        <p>© 2025 Untitled</p>
-    </footer>
-    <script src="{% static 'menu/js/scripts.js' %}"></script>
 </body>
 </html>
