@@ -8,32 +8,44 @@
 <div class="menu-page">
     <h1 class="logo">untitled <span>coffee</span></h1>
 
-    <div class="menu-list">
-        {% for coffee in coffees %}
-            <div class="menu-item {% if coffee.name == 'drip' %}after-espresso{% elif coffee.name == 'cold brew' %}after-drip{% elif coffee.name == 'plant milk' %}after-cold{% endif %}">
-                <div class="menu-left">
-                    {% if coffee.temperature == 'both' %}
-                        <p class="temp">hot/iced</p>
-                    {% elif coffee.temperature == 'hot' %}
-                        <p class="temp">hot</p>
-                    {% elif coffee.temperature == 'cold' %}
-                        <p class="temp">iced</p>
-                    {% endif %}
+    {% for group in groups %}
+        <div class="menu-list" data-group="{{ group.key }}">
+            {% for coffee in group.items %}
+                <div class="menu-item {{ group.class }}" data-id="{{ coffee.id }}" {% if coffee.description %}data-description="{{ coffee.description }}"{% endif %}>
+                    <div class="menu-left">
+                        {% if coffee.temperature == 'both' %}
+                            <p class="temp">hot/iced</p>
+                        {% elif coffee.temperature == 'hot' %}
+                            <p class="temp">hot</p>
+                        {% elif coffee.temperature == 'cold' %}
+                            <p class="temp">iced</p>
+                        {% endif %}
+                    </div>
+                    <div class="menu-center">
+                        <h3>{{ coffee.name }}</h3>
+                    </div>
+                    <div class="menu-right">
+                        {% if coffee.has_two_prices %}
+                            <p class="price-double">{{ coffee.price_display }} {{ coffee.price_2_display }}</p>
+                        {% else %}
+                            <p>{{ coffee.price_display }}</p>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="menu-center">
-                    <h3>{{ coffee.name }}</h3>
-                </div>
-                <div class="menu-right">
-                    {% if coffee.has_two_prices %}
-                        <p class="price-double">{{ coffee.price_display }} {{ coffee.price_2_display }}</p>
-                    {% else %}
-                        <p>{{ coffee.price_display }}</p>
-                    {% endif %}
-                </div>
-            </div>
-        {% empty %}
-            <p class="empty">No coffee available right now ☕</p>
-        {% endfor %}
+            {% empty %}
+                <p class="empty">No coffee available in this group ☕</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Coffee Information Modal -->
+<div id="coffeeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <div id="modalBody"></div>
     </div>
 </div>
+
 {% endblock %}

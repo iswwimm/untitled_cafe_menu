@@ -3,11 +3,14 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'modifiers/css/dashboard.css' %}">
+<script src="{% static 'modifiers/js/dashboard.js' %}"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
+{% csrf_token %}
 <div class="dashboard-container">
-    <h2>Staff Dashboard</h2>
+    <h2>Dashboard</h2>
 
     <p><a href="{% url 'modifiers:archive' %}" class="btn">View Archive</a></p>
 
@@ -16,29 +19,47 @@
         <h3>{{ section.name|capfirst }}</h3>
         <a href="{% url 'modifiers:add_item' section.name %}" class="btn add-btn">Add {{ section.name|capfirst }}</a>
 
-        <ul class="item-list">
-            {% for item in section.items %}
-            <li class="item">
-                {% if item.image %}
-                <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
-                {% endif %}
-
-                {% if section.name == 'coffee' %}
-                <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }} — {{ item.get_temperature_display }}</span>
-                {% else %}
-                <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}</span>
-                {% endif %}
-
-                <div class="actions">
-                    <a href="{% url 'modifiers:edit_item' section.name item.pk %}" class="btn">Edit</a>
-                    <a href="{% url 'modifiers:archive_item' section.name item.pk %}" class="btn">Archive</a>
-                    <a href="{% url 'modifiers:delete_item' section.name item.pk %}" class="btn delete-btn">Delete</a>
-                </div>
-            </li>
-            {% empty %}
-            <li class="item">No {{ section.name }} items.</li>
+        {% if section.name == 'coffee' %}
+            {% comment %} Вивід кави по групах {% endcomment %}
+            {% for group_key, items in section.grouped_items %}
+                <h4>{{ group_key|capfirst }}</h4>
+                <ul class="item-list draggable-list" data-model="coffee" data-group="{{ group_key }}">
+                    {% for item in items %}
+                        <li class="item draggable-item" data-id="{{ item.id }}" draggable="true">
+                            {% if item.image %}
+                                <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
+                            {% endif %}
+                            <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}{% if item.temperature %} — {{ item.get_temperature_display }}{% endif %}</span>
+                            <div class="actions">
+                                <a href="{% url 'modifiers:edit_item' section.name item.pk %}" class="btn">Edit</a>
+                                <a href="{% url 'modifiers:archive_item' section.name item.pk %}" class="btn">Archive</a>
+                                <a href="{% url 'modifiers:delete_item' section.name item.pk %}" class="btn delete-btn">Delete</a>
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li class="item">No items in this group.</li>
+                    {% endfor %}
+                </ul>
             {% endfor %}
-        </ul>
+        {% else %}
+            <ul class="item-list draggable-list" data-model="{{ section.name }}">
+                {% for item in section.items %}
+                    <li class="item draggable-item" data-id="{{ item.id }}" draggable="true">
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
+                        {% endif %}
+                        <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}</span>
+                        <div class="actions">
+                            <a href="{% url 'modifiers:edit_item' section.name item.pk %}" class="btn">Edit</a>
+                            <a href="{% url 'modifiers:archive_item' section.name item.pk %}" class="btn">Archive</a>
+                            <a href="{% url 'modifiers:delete_item' section.name item.pk %}" class="btn delete-btn">Delete</a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="item">No {{ section.name }} items.</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

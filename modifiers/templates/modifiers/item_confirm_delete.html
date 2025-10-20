@@ -10,6 +10,14 @@
     <h2>{{ title }}</h2>
     <p>Are you sure you want to delete <strong>{{ object.name }}</strong>?</p>
 
+    {% if object.group %}
+    <p>Group: <strong>{{ object.get_group_display }}</strong></p>
+    {% endif %}
+
+    {% if object.temperature %}
+    <p>Temperature: <strong>{{ object.get_temperature_display }}</strong></p>
+    {% endif %}
+
     {% if object.image %}
     <img src="{{ object.image.url }}" class="thumbnail">
     {% endif %}

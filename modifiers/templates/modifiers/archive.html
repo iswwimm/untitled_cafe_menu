@@ -1,35 +1,49 @@
 {% extends 'menu/base.html' %}
-{% load static %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{% static 'modifiers/css/dashboard.css' %}">
-{% endblock %}
-
 {% block content %}
-<div class="dashboard-container">
-    <h2>Archive</h2>
-    <p><a href="{% url 'modifiers:dashboard' %}" class="btn">Back to Dashboard</a></p>
 
-    {% for section in sections %}
-    <div class="dashboard-section">
-        <h3>{{ section.name|capfirst }} (archived)</h3>
+<h1>Archive</h1>
+
+{% for section in sections %}
+    <h2>{{ section.name|capfirst }}</h2>
+
+    {% if section.name == 'coffee' %}
+        {% for group, items in section.grouped_items.items %}
+            <h3>{{ group|capfirst }}</h3>
+            <ul class="item-list">
+                {% for item in items %}
+                    <li class="item">
+                        {% if item.image %}
+                            <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
+                        {% endif %}
+                        <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}</span>
+                        <div class="actions">
+                            <a href="{% url 'modifiers:restore_item' section.name item.pk %}" class="btn">Restore</a>
+                            <a href="{% url 'modifiers:delete_item' section.name item.pk %}" class="btn delete-btn">Delete</a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="item">No archived items in this group.</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    {% else %}
         <ul class="item-list">
             {% for item in section.items %}
-            <li class="item">
-                {% if item.image %}
-                <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
-                {% endif %}
-                <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}</span>
-                <div class="actions">
-                    <a href="{% url 'modifiers:restore_item' section.name item.pk %}" class="btn">Restore</a>
-                    <a href="{% url 'modifiers:delete_item' section.name item.pk %}" class="btn delete-btn">Delete</a>
-                </div>
-            </li>
+                <li class="item">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
+                    {% endif %}
+                    <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}</span>
+                    <div class="actions">
+                        <a href="{% url 'modifiers:restore_item' section.name item.pk %}" class="btn">Restore</a>
+                        <a href="{% url 'modifiers:delete_item' section.name item.pk %}" class="btn delete-btn">Delete</a>
+                    </div>
+                </li>
             {% empty %}
-            <li>No archived {{ section.name }} items.</li>
+                <li class="item">No archived items.</li>
             {% endfor %}
         </ul>
-    </div>
-    {% endfor %}
-</div>
+    {% endif %}
+{% endfor %}
+
 {% endblock %}

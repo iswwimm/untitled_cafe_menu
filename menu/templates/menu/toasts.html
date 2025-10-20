@@ -4,21 +4,29 @@
 {% block title %}Toast Menu{% endblock %}
 
 {% block content %}
-<section class="menu">
-    <h2>Toast Menu</h2>
-    <div class="items">
+<div class="menu-page">
+    <h1 class="logo">untitled <span>toasts</span></h1>
+    
+    <div class="menu-list">
         {% for toast in toasts %}
-        <div class="item-card">
-            <h3>{{ toast.name }}</h3>
-            <img src="{{ toast.image.url }}" alt="{{ toast.name }}">
-            <p>{{ toast.description }}</p>
-            <p><strong>Ingredients:</strong> {{ toast.ingredients }}</p>
-            <p><strong>Allergens:</strong> {{ toast.allergens }}</p>
-            <p><strong>Price:</strong> {{ toast.price|floatformat:1 }}</p>
+        <div class="menu-item" data-id="{{ toast.id }}">
+            <div class="menu-left">
+                {% if toast.image %}
+                <img src="{{ toast.image.url }}" alt="{{ toast.name }}" class="item-image">
+                {% endif %}
+            </div>
+            <div class="menu-center">
+                <h3>{{ toast.name }}</h3>
+                <p class="description">{{ toast.description }}</p>
+                <p class="ingredients">{{ toast.ingredients }}</p>
+            </div>
+            <div class="menu-right">
+                <p>{{ toast.price_display }}</p>
+            </div>
         </div>
         {% empty %}
-        <p>No toasts available at the moment.</p>
+        <p class="empty">No toasts available ☕</p>
         {% endfor %}
     </div>
-</section>
+</div>
 {% endblock %}

@@ -5,78 +5,329 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* щоб фон не стрибав при скролі */
-    color: #1233a1;
-    font-family: 'Poppins', sans-serif;
+    background-attachment: fixed;
+    color: #293378;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
     margin: 0;
     padding: 0;
     text-align: center;
     overflow-x: hidden;
 }
-
-/* Сторінка кави без фону */
-body.coffee-page {
-    background: #f8f8f8;
-    background-image: none;
-}
-
-/* Контейнер */
-.wrapper {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 20px;
-}
-
 /* ===================== */
 /* 🔹 Логотип */
 .logo {
-    font-size: 2.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    position: absolute;
+    width: 35%;
+    max-width: 250px;
+    height: auto;
+}
+
+/* адаптивність */
+/* --- 📱 Мобільні пристрої --- */
+@media (max-width: 600px) {
+  .logo-img {
+    width: 330px;         /* трохи більша пропорція на малих екранах */
+    max-width: 330px;
+  }
+
+  .logo {
+    margin-bottom: 20px; /* трохи менший відступ */
+  }
+
+  .menu-links a {
+    font-size: 16px;     /* трохи менший текст */
+  }
+}
+
+/* --- 💻 Планшети --- */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .logo-img {
+    width: 45%;          /* виглядає гармонійно на планшеті */
+    max-width: 650px;
+  }
+
+  .logo {
+    margin-bottom: 28px; /* трохи більше простору */
+  }
+
+  .menu-links a {
+    font-size: 18px;
+  }
+}
+
+/* ===================== */
+/* 🏠 Головна сторінка */
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 70px;
+}
+
+.menu-links a {
+  position: relative;
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 28px;
+  color: #293378;
+  text-decoration: none;
+  transition: transform 0.1s ease, color 0.2s ease;
+  padding: 6px 0;
+}
+
+/* Анімація при натисканні (тапі) */
+.menu-links a:active {
+  transform: scale(0.94);
+  color: #4b5be0; /* світліший відтінок при натисканні */
+}
+
+/* Маленька лінія під текстом — просто для естетики */
+.menu-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background-color: #293378;
+  opacity: 0.15;
+  border-radius: 1px;
+}
+
+/* ===================== */
+/* ℹ️ Інформація */
+.info {
+  text-align: center;                
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-size: 10px;                   
+  color: #293378;                               
+  position: absolute;
+  bottom: 100px;              
+}
+
+.info p {
+  margin: 0.5px;                     
+}
+
+.info p:first-child {
+  margin-bottom: 10px;                               
+}
+/* ===================== */
+/* ☕ Сторінка кави */
+.menu-page {
+    text-align: left;
+    padding: 40px 20px 60px;
+    color: #293378;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+}
+
+.menu-page .logo {
+    color: #293378;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
     font-weight: 700;
     text-transform: lowercase;
-    margin-bottom: 50px;
-    color: #1233a1;
     letter-spacing: -1px;
 }
 
-.logo span {
+.menu-page .logo span {
     font-size: 1rem;
     font-weight: 500;
     display: block;
     margin-top: 5px;
 }
 
-/* ===================== */
-/* 🏠 Головна сторінка */
-.home {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 60px 20px 40px;
-    color: #fff;
-    text-align: center;
-}
-
-/* Тінь для кращої читабельності на фоні */
-.home h2,
-.home p {
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
-}
-
-.home h2 {
-    font-size: 2.2rem;
-    margin-bottom: 12px;
-    font-weight: 700;
-}
-
-.home p {
-    font-size: 1.1rem;
-    max-width: 420px;
+.menu-list {
+    max-width: 600px;
     margin: 0 auto;
-    line-height: 1.6;
+    padding: 40px;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 10px 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Відступи між групами */
+.menu-item:not(:last-child) {
+    margin-bottom: 2px;
+}
+
+.menu-item.after-base_coffee {
+    margin-top: 50px;
+}
+
+.menu-item.after-alternative_coffee {
+    margin-top: 50px;
+}
+
+.menu-item.after-other_drink {
+    margin-top: 16px;
+    padding-top: 8px;
+}
+
+/* ===================== */
+/* 📐 Layout */
+.menu-left {
+    flex: 0 0 auto;
+    text-align: left;
+    min-width: 60px;
+}
+
+.menu-center {
+    flex: 1;
+    text-align: left;
+    padding: 0 5px;
+    overflow: hidden;
+}
+
+.menu-right {
+    flex: 0 0 auto;
+    text-align: right;
+    min-width: 40px;
+}
+
+/* ===================== */
+/* 📄 Текст */
+.menu-item h3 {
+    color: #293378;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    text-transform: lowercase;
+    white-space: nowrap;
+}
+
+.menu-item p {
+    color: #293378;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.menu-item p.price-double {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.temp {
+    font-size: 0.9rem !important;
+    color: #666 !important;
+    font-weight: 400 !important;
+}
+
+.empty {
+    color: #293378 !important;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 40px 0;
+}
+
+/* ===================== */
+/* 📱 Responsive: планшети та мобільні */
+@media (max-width: 768px) {
+    .menu-list {
+        padding: 15px;
+    }
+
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .menu-left, .menu-right {
+        min-width: auto;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .menu-center {
+        width: 100%;
+        padding: 0;
+    }
+
+    .menu-item h3, .menu-item p {
+        font-size: 0.95rem;
+    }
+
+    .temp {
+        font-size: 0.85rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-page .logo {
+        font-size: 1.8rem;
+    }
+
+    .menu-item h3, .menu-item p {
+        font-size: 0.85rem;
+    }
+
+    .temp {
+        font-size: 0.75rem !important;
+    }
+
+    .menu-item {
+        padding: 8px 10px;
+        gap: 5px;
+    }
+
+    .menu-list {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .menu-page .logo {
+        font-size: 1.6rem;
+    }
+
+    .menu-item h3, .menu-item p {
+        font-size: 0.7rem;
+    }
+
+    .temp {
+        font-size: 0.7rem !important;
+    }
+
+    .menu-left, .menu-right {
+        min-width: auto;
+    }
 }
 
 /* ===================== */
@@ -110,17 +361,6 @@ body.coffee-page {
     transform: scale(1.05);
 }
 
-/* ===================== */
-/* ℹ️ Інформація */
-.info {
-    display: block;
-    margin: 50px auto 30px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #1233a1;
-    opacity: 0.85;
-    width: fit-content;
-}
 
 /* ===================== */
 /* 🍽️ Меню */
@@ -170,7 +410,7 @@ body.coffee-page {
     font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 6px;
-    color: #1233a1;
+    color: #293378;
 }
 
 .item-card p {
@@ -178,347 +418,306 @@ body.coffee-page {
     color: #333;
     margin-bottom: 5px;
 }
-
 /* ===================== */
 /* 🧾 Staff Dashboard */
-.dashboard {
+.dashboard-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.dashboard-container h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
     text-align: center;
-    margin: 40px auto;
-    padding: 25px;
-    max-width: 600px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 18px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard h2 {
-    font-size: 1.9rem;
-    margin-bottom: 10px;
-    color: #1233a1;
-}
-
-.dashboard p {
-    font-size: 1rem;
+.dashboard-container p a.btn {
+    display: inline-block;
     margin-bottom: 20px;
-    color: #333;
-}
-
-.dashboard-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-
-.dashboard-btn {
-    display: block;
-    width: 85%;
-    padding: 14px 0;
-    text-decoration: none;
-    color: #fff;
+    padding: 10px 20px;
     background-color: #6b4226;
+    color: #fff;
     border-radius: 12px;
-    font-size: 1.15rem;
     font-weight: 500;
-    transition: transform 0.2s, background 0.3s;
-    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
 }
 
-.dashboard-btn:hover {
+.dashboard-container p a.btn:hover {
     background-color: #a67853;
     transform: scale(1.05);
 }
 
 /* ===================== */
-/* 📋 Списки */
-ul {
+/* 📂 Sections */
+.dashboard-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 14px;
+}
+
+.dashboard-section h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: #34495e;
+}
+
+.dashboard-section h4 {
+    font-size: 1.1rem;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* ===================== */
+/* 📋 Item Lists */
+ul.item-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-ul li a {
-    text-decoration: none;
-    color: #fff;
-    background-color: #6b4226;
-    padding: 12px 24px;
+ul.item-list li.item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 10px 14px;
     border-radius: 12px;
-    display: inline-block;
-    margin: 10px 0;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: transform 0.2s, background 0.3s;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-ul li a:hover {
+ul.item-list li.item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+ul.item-list li.item img.thumbnail {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+ul.item-list li.item span {
+    flex: 1 1 150px;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    margin-right: 10px;
+}
+
+/* ===================== */
+/* 🎛 Action Buttons */
+.actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.actions a.btn {
+    padding: 5px 10px;
+    background-color: #6b4226;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.actions a.btn:hover {
     background-color: #a67853;
     transform: scale(1.05);
 }
 
+.actions a.delete-btn {
+    background-color: #e74c3c;
+}
+
+.actions a.delete-btn:hover {
+    background-color: #c0392b;
+}
+
 /* ===================== */
-/* ☕ Сторінка кави */
-.menu-page {
-    text-align: left;
-    padding: 40px 20px 60px;
-    color: #1233a1;
-    background: #f8f8f8;
-    min-height: 100vh;
+/* 🎨 Coffee Groups Highlight */
+.group-basic {
+    border-left: 4px solid #3498db;
+    padding-left: 10px;
 }
 
-.menu-page .logo {
-    color: #1233a1;
+.group-alternative {
+    border-left: 4px solid #e67e22;
+    padding-left: 10px;
+}
+
+.group-other {
+    border-left: 4px solid #2ecc71;
+    padding-left: 10px;
+}
+
+.group-addon {
+    border-left: 4px solid #f1c40f;
+    padding-left: 10px;
+}
+
+/* ===================== */
+/* 🖼 Form Styling */
+.form-container {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.form-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
     text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-transform: lowercase;
-    letter-spacing: -1px;
 }
 
-.menu-page .logo span {
-    font-size: 1rem;
-    font-weight: 500;
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
     display: block;
-    margin-top: 5px;
-}
-
-.menu-list {
-    max-width: 600px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 0;
-    font-size: 1rem;
-    min-height: 32px;
-    gap: 10px;
-}
-
-/* Групування з різними відступами */
-.menu-item:not(:last-child) {
-    margin-bottom: 2px;
-}
-
-/* Більші відступи між групами (після певних елементів) */
-.menu-item.after-espresso {
-    margin-top: 16px;
-    padding-top: 8px;
-    border-top: 1px solid #e0e0e0;
-}
-
-.menu-item.after-drip {
-    margin-top: 16px;
-    padding-top: 8px;
-    border-top: 1px solid #e0e0e0;
-}
-
-.menu-item.after-cold {
-    margin-top: 16px;
-    padding-top: 8px;
-    border-top: 1px solid #e0e0e0;
-}
-
-.menu-left {
-    flex: 0 0 auto;
-    text-align: left;
-    min-width: 60px;
-}
-
-.menu-center {
-    flex: 1;
-    text-align: left;
-    padding: 0 5px;
-    overflow: hidden;
-}
-
-.menu-right {
-    flex: 0 0 auto;
-    text-align: right;
-    min-width: 40px;
-}
-
-.menu-item h3 {
-    color: #1233a1;
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0;
-    text-transform: lowercase;
-    white-space: nowrap;
-}
-
-.menu-item p {
-    color: #1233a1;
-    margin: 0;
-    font-size: 1rem;
     font-weight: 500;
-    white-space: nowrap;
+    margin-bottom: 5px;
+    color: #34495e;
 }
 
-.menu-item p.price-double {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.3s;
 }
 
-.temp {
-    font-size: 0.9rem !important;
-    color: #666 !important;
-    font-weight: 400 !important;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #3498db;
 }
 
-.empty {
-    color: #1233a1 !important;
-    text-align: center;
-    font-size: 1.1rem;
-    padding: 40px 0;
+button.btn {
+    padding: 8px 18px;
+    background-color: #6b4226;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button.btn:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
+}
+
+a.cancel-btn {
+    margin-left: 8px;
+    padding: 8px 18px;
+    background-color: #95a5a6;
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+a.cancel-btn:hover {
+    background-color: #7f8c8d;
 }
 
 /* ===================== */
-/* 📱 Адаптивність */
+/* 📱 Responsive: Mobile */
 @media (max-width: 768px) {
-    .home {
-        padding: 50px 20px 30px;
-    }
-
-    .home h2 {
-        font-size: 1.9rem;
-    }
-
-    .home p {
-        font-size: 1rem;
-    }
-
-    .menu-btn {
-        font-size: 1rem;
-        padding: 12px 0;
-    }
-
-    .info {
-        font-size: 0.8rem;
-        margin: 40px auto 25px;
-    }
-}
-
-@media (max-width: 480px) {
-    .home h2 {
-        font-size: 1.6rem;
-    }
-
-    .home p {
-        font-size: 0.95rem;
-    }
-
-    .menu-btn {
-        font-size: 1rem;
-        padding: 12px 0;
-    }
-
-    .item-card {
-        width: 92%;
-    }
-
-    .dashboard {
-        padding: 20px;
-    }
-
-    .dashboard h2 {
-        font-size: 1.6rem;
-    }
-
-    .dashboard-btn {
-        font-size: 1rem;
-        width: 90%;
-    }
-
-    .menu-list {
+    .dashboard-container {
         padding: 15px;
-        margin: 0 5px;
+        margin: 15px;
     }
 
-    .menu-item {
-        padding: 3px 0;
-        font-size: 0.8rem;
-        gap: 5px;
-        min-height: 30px;
+    ul.item-list li.item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
     }
 
-    .menu-item.after-espresso,
-    .menu-item.after-drip,
-    .menu-item.after-cold {
-        margin-top: 12px;
-        padding-top: 6px;
+    ul.item-list li.item img.thumbnail {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 6px;
     }
 
-    .menu-left {
-        min-width: 45px;
+    ul.item-list li.item span {
+        margin-bottom: 6px;
     }
 
-    .menu-center {
-        padding: 0 3px;
+    .actions {
+        width: 100%;
+        justify-content: flex-start;
     }
 
-    .menu-right {
-        min-width: 30px;
+    .actions a.btn {
+        flex: 1 1 auto;
+        font-size: 0.85rem;
+        padding: 6px 10px;
     }
 
-    .menu-item h3 {
-        font-size: 0.8rem;
+    .form-container {
+        padding: 15px;
+        margin: 10px;
     }
 
-    .menu-item p {
-        font-size: 0.8rem;
+    .form-container h2 {
+        font-size: 1.5rem;
     }
 
-    .menu-page .logo {
-        font-size: 1.8rem;
-        margin-bottom: 30px;
-    }
-
-    .temp {
-        font-size: 0.75rem !important;
+    button.btn, a.cancel-btn {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }
 
-/* Додаткові стилі для дуже маленьких екранів */
-@media (max-width: 360px) {
-    .menu-list {
-        padding: 10px;
-        margin: 0;
+/* ===================== */
+/* 📱 Responsive: Small Mobile */
+@media (max-width: 480px) {
+    .dashboard-container h2 {
+        font-size: 1.4rem;
     }
 
-    .menu-item {
-        font-size: 0.7rem;
-        gap: 3px;
-        min-height: 30px;
+    .dashboard-section h3 {
+        font-size: 1.2rem;
     }
 
-    .menu-left {
-        min-width: 40px;
+    .dashboard-section h4 {
+        font-size: 1rem;
     }
 
-    .menu-right {
-        min-width: 25px;
+    ul.item-list li.item span {
+        font-size: 0.9rem;
     }
 
-    .menu-item h3 {
-        font-size: 0.7rem;
-    }
-
-    .menu-item p {
-        font-size: 0.7rem;
-    }
-
-    .menu-page .logo {
-        font-size: 1.6rem;
-    }
-
-    .temp {
-        font-size: 0.7rem !important;
+    .actions a.btn {
+        font-size: 0.8rem;
+        padding: 5px 8px;
     }
 }

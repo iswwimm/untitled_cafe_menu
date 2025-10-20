@@ -5,11 +5,11 @@ from .models import Coffee, Toast, Sweet
 
 @admin.register(Coffee)
 class CoffeeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'is_active', 'display_volumes', 'temperature')
-    list_filter = ('is_active', 'temperature')
+    list_display = ('name', 'group', 'price', 'is_active', 'display_volumes', 'temperature')
+    list_filter = ('is_active', 'temperature', 'group')
     search_fields = ('name',)
     actions = ('make_active', 'make_inactive')
-    fields = ('name', 'price', 'temperature', 'image', 'is_active')
+    fields = ('name', 'group', 'price', 'temperature', 'image', 'is_active')
 
     def make_active(self, request, queryset):
         queryset.update(is_active=True)

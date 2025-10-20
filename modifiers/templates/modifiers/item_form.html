@@ -10,12 +10,43 @@
     <h2>{{ title }}</h2>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
 
-        {% if form.instance.pk and form.instance.image %}
-        <p>Current Image:</p>
-        <img src="{{ form.instance.image.url }}" class="thumbnail">
+        <div class="form-group">
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+        </div>
+
+        {% if form.instance.group != 'addon' %}
+        <div class="form-group">
+            <label for="id_temperature">Temperature:</label>
+            {{ form.temperature }}
+        </div>
         {% endif %}
+
+        <div class="form-group">
+            <label for="id_group">Group:</label>
+            {{ form.group }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_price">Price:</label>
+            {{ form.price }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_price_2">Second Price (optional):</label>
+            {{ form.price_2 }}
+        </div>
+        
+        <div class ="form_group">
+            <label for="description">Description:</label>
+            {{ form.description }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_is_active">Active:</label>
+            {{ form.is_active }}
+        </div>
 
         <button type="submit" class="btn">Save</button>
         <a href="{% url 'modifiers:dashboard' %}" class="btn cancel-btn">Cancel</a>

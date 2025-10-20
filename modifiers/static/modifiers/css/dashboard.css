@@ -1,15 +1,14 @@
 /* ---------------- General ---------------- */
 body {
-    font-family: Arial, sans-serif;
+    color: #293378;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
 }
 
 .dashboard-container {
     max-width: 900px;
     margin: 40px auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h2 {
@@ -131,6 +130,39 @@ h2 {
 
 .form-container img.thumbnail {
     margin-bottom: 10px;
+}
+
+/* ---------------- Drag and Drop ---------------- */
+.draggable-item[draggable="true"] {
+    cursor: move;
+    transition: all 0.3s ease;
+}
+
+.draggable-item.dragging {
+    opacity: 0.5;
+    transform: rotate(2deg);
+    z-index: 1000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.draggable-item.drop-target {
+    border-top: 3px solid #3498db;
+    transform: translateY(-2px);
+}
+
+.draggable-item.touch-dragging {
+    opacity: 0.7;
+    z-index: 1000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.draggable-list {
+    transition: all 0.3s ease;
+}
+
+.draggable-list.drag-over {
+    background-color: rgba(52, 152, 219, 0.05);
+    border-radius: 8px;
 }
 
 /* ---------------- Responsive ---------------- */

@@ -9,11 +9,20 @@ class Coffee(models.Model):
         ('both', 'Hot & Cold'),
     ]
 
+    GROUP_CHOICES = [
+        ('basic', 'Basic Drinks'),
+        ('alternative', 'Alternative'),
+        ('other', 'Other Drinks'),
+        ('addon', 'Add-ons'), 
+    ]   
+
     name = models.CharField(max_length=100)
+    group = models.CharField(max_length=20, choices=GROUP_CHOICES, default='basic')
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     price_2 = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
     temperature = models.CharField(max_length=10, choices=TEMPERATURE_CHOICES, blank=True, null=True)
-    image = models.ImageField(upload_to='menu/images/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True, help_text="Optional description for coffee information modal")
+    order = models.PositiveIntegerField(default=0)
 
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -24,7 +33,6 @@ class Coffee(models.Model):
 
     @property
     def price_display(self):
-        # повертаємо ціле число, якщо воно ціле, інакше Decimal (наприклад 45.5)
         if self.price == self.price.to_integral_value():
             return int(self.price)
         return self.price
@@ -52,6 +60,7 @@ class Toast(models.Model):
     description = models.TextField(blank=True)
     allergens = models.TextField(blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    order = models.PositiveIntegerField(default=0)
     
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -74,6 +83,7 @@ class Sweet(models.Model):
     description = models.TextField(blank=True)
     allergens = models.TextField(blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    order = models.PositiveIntegerField(default=0)
     
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)

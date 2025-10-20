@@ -4,21 +4,29 @@
 {% block title %}Sweets Menu{% endblock %}
 
 {% block content %}
-<section class="menu">
-    <h2>Sweets Menu</h2>
-    <div class="items">
+<div class="menu-page">
+    <h1 class="logo">untitled <span>sweets</span></h1>
+    
+    <div class="menu-list">
         {% for sweet in sweets %}
-        <div class="item-card">
-            <h3>{{ sweet.name }}</h3>
-            <img src="{{ sweet.image.url }}" alt="{{ sweet.name }}">
-            <p>{{ sweet.description }}</p>
-            <p><strong>Ingredients:</strong> {{ sweet.ingredients }}</p>
-            <p><strong>Allergens:</strong> {{ sweet.allergens }}</p>
-            <p><strong>Price:</strong> {{ sweet.price|floatformat:1 }}</p>
+        <div class="menu-item" data-id="{{ sweet.id }}">
+            <div class="menu-left">
+                {% if sweet.image %}
+                <img src="{{ sweet.image.url }}" alt="{{ sweet.name }}" class="item-image">
+                {% endif %}
+            </div>
+            <div class="menu-center">
+                <h3>{{ sweet.name }}</h3>
+                <p class="description">{{ sweet.description }}</p>
+                <p class="ingredients">{{ sweet.ingredients }}</p>
+            </div>
+            <div class="menu-right">
+                <p>{{ sweet.price_display }}</p>
+            </div>
         </div>
         {% empty %}
-        <p>No sweets available at the moment.</p>
+        <p class="empty">No sweets available ☕</p>
         {% endfor %}
     </div>
-</section>
+</div>
 {% endblock %}
