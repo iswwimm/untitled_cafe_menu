@@ -1,32 +1,77 @@
 {% extends 'menu/base.html' %}
 {% load static %}
 
-{% block title %}Sweets Menu{% endblock %}
+{% block title %}untitled sweets{% endblock %}
+{% block body_class %}sweets-page{% endblock %}
 
 {% block content %}
 <div class="menu-page">
-    <h1 class="logo">untitled <span>sweets</span></h1>
-    
-    <div class="menu-list">
-        {% for sweet in sweets %}
-        <div class="menu-item" data-id="{{ sweet.id }}">
-            <div class="menu-left">
-                {% if sweet.image %}
-                <img src="{{ sweet.image.url }}" alt="{{ sweet.name }}" class="item-image">
-                {% endif %}
-            </div>
+    <div class="logo">
+        <img src="{% static 'menu/images/logo.png' %}" alt="Untitled Sweets" class="logo-img">
+    </div>
+
+    {% for sweet in sweets %}
+        <div class="menu-item" data-id="{{ sweet.id }}" {% if sweet.description %}data-description="{{ sweet.description }}"{% endif %} {% if sweet.image %}data-image="{{ sweet.image.url }}"{% endif %}>
             <div class="menu-center">
                 <h3>{{ sweet.name }}</h3>
-                <p class="description">{{ sweet.description }}</p>
-                <p class="ingredients">{{ sweet.ingredients }}</p>
+                {% if sweet.description %}
+                    <p class="description">
+                        {{ sweet.description }}
+                        {% if sweet.allergens %}
+                            <sup class="allergens-sup">{{ sweet.allergens }}</sup>
+                        {% endif %}
+                    </p>
+                {% elif sweet.allergens %}
+                    <p class="description">
+                        <sup class="allergens-sup">{{ sweet.allergens }}</sup>
+                    </p>
+                {% endif %}
             </div>
             <div class="menu-right">
                 <p>{{ sweet.price_display }}</p>
             </div>
         </div>
-        {% empty %}
-        <p class="empty">No sweets available ☕</p>
-        {% endfor %}
+    {% empty %}
+        <p class="empty">No sweets available 🍰</p>
+    {% endfor %}
+
+    <!-- Allergens section -->
+    <div class="allergens-section">
+        <div class="menu-item allergens-item" data-allergens-info="true">
+            <div class="menu-center">
+                <h3>Allergens</h3>
+                <p class="description">Click to view allergen information</p>
+            </div>
+            <div class="menu-right">
+                <!-- Empty -->
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Sweet Information Modal -->
+<div id="sweetModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalBody"></p>
+    </div>
+</div>
+
+<!-- Image Modal -->
+<div id="imageModal" class="modal" aria-hidden="true">
+    <div class="modal-overlay"></div>
+    <div class="modal-inner">
+        <img id="modalImage" src="" alt="" />
+    </div>
+</div>
+
+<!-- Allergens Modal -->
+<div id="allergensModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+        <h3>Allergen Information</h3>
+        <div id="allergensList"></div>
+    </div>
+</div>
+
 {% endblock %}

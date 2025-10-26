@@ -16,7 +16,14 @@
             {{ form.name }}
         </div>
 
-        {% if form.instance.group != 'addon' %}
+        {% if 'group' in form.fields %}
+        <div class="form-group">
+            <label for="id_group">Group:</label>
+            {{ form.group }}
+        </div>
+        {% endif %}
+
+        {% if 'temperature' in form.fields %}
         <div class="form-group">
             <label for="id_temperature">Temperature:</label>
             {{ form.temperature }}
@@ -24,23 +31,34 @@
         {% endif %}
 
         <div class="form-group">
-            <label for="id_group">Group:</label>
-            {{ form.group }}
-        </div>
-
-        <div class="form-group">
             <label for="id_price">Price:</label>
             {{ form.price }}
         </div>
 
+        {% if 'price_2' in form.fields %}
         <div class="form-group">
             <label for="id_price_2">Second Price (optional):</label>
             {{ form.price_2 }}
         </div>
+        {% endif %}
+
+        {% if 'description' in form.fields %}
+        <div class="form-group">
+            <label for="id_description">Description:</label>
+            {{ form.description }}
+        </div>
+        {% endif %}
+
+        {% if 'allergens' in form.fields %}
+        <div class="form-group">
+            <label for="id_allergens">Allergens:</label>
+            {{ form.allergens }}
+        </div>
+        {% endif %}
         
         <div class ="form_group">
-            <label for="description">Description:</label>
-            {{ form.description }}
+            <label for="id_image">Image:</label>
+            {{ form.image }}
         </div>
 
         <div class="form-group">

@@ -4,7 +4,6 @@
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'modifiers/css/dashboard.css' %}">
 <script src="{% static 'modifiers/js/dashboard.js' %}"></script>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -20,7 +19,7 @@
         <a href="{% url 'modifiers:add_item' section.name %}" class="btn add-btn">Add {{ section.name|capfirst }}</a>
 
         {% if section.name == 'coffee' %}
-            {% comment %} Вивід кави по групах {% endcomment %}
+            {% comment %} Coffee output by groups {% endcomment %}
             {% for group_key, items in section.grouped_items %}
                 <h4>{{ group_key|capfirst }}</h4>
                 <ul class="item-list draggable-list" data-model="coffee" data-group="{{ group_key }}">

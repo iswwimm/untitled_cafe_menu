@@ -1,15 +1,14 @@
 /* ---------------- General ---------------- */
 body {
-    font-family: Arial, sans-serif;
+    color: #293378;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: bold;
 }
 
 .dashboard-container {
     max-width: 900px;
     margin: 40px auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h2 {
@@ -131,6 +130,162 @@ h2 {
 
 .form-container img.thumbnail {
     margin-bottom: 10px;
+}
+
+/* ---------------- Drag and Drop ---------------- */
+.draggable-item[draggable="true"] {
+    cursor: move;
+    transition: all 0.3s ease;
+}
+
+.draggable-item.dragging {
+    opacity: 0.5;
+    transform: rotate(2deg);
+    z-index: 1000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.draggable-item.drop-target {
+    border-top: 3px solid #3498db;
+    transform: translateY(-2px);
+}
+
+.draggable-item.touch-dragging {
+    opacity: 0.7;
+    z-index: 1000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.draggable-list {
+    transition: all 0.3s ease;
+}
+
+.draggable-list.drag-over {
+    background-color: rgba(52, 152, 219, 0.05);
+    border-radius: 8px;
+}
+
+/* ---------------- Checkbox styles for allergens ---------------- */
+.allergens-checkboxes {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: white;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 2px;
+}
+
+.allergens-checkboxes ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.allergens-checkboxes li {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.allergens-checkboxes li:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+}
+
+.allergens-checkboxes li.selected {
+    background-color: #3498db;
+    color: white;
+    border-color: #2980b9;
+}
+
+.allergens-checkboxes li.selected:hover {
+    background-color: #2980b9;
+}
+
+.allergens-checkboxes input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.allergens-checkboxes label {
+    margin: 0;
+    font-weight: normal;
+    cursor: pointer;
+    white-space: nowrap;
+    color: inherit;
+}
+
+/* Ensure labels are visible */
+.allergens-checkboxes label:not([for]) {
+    display: inline;
+    margin-left: 5px;
+}
+
+.form-group label {
+    margin-bottom: 3px;
+    font-weight: bold;
+    display: block;
+}
+
+/* Hide current image display */
+.form-group input[type="file"] + br,
+.form-group input[type="file"] + a,
+.form-group input[type="file"] + div,
+.form-group input[type="file"] + p,
+.form-group input[type="file"] + span {
+    display: none !important;
+}
+
+/* Hide "Currently:" text and clear link */
+.form-group input[type="file"] ~ * {
+    display: none !important;
+}
+
+/* Hide any text that contains "Currently:" */
+.form-group:has(input[type="file"]) *:not(input[type="file"]) {
+    display: none !important;
+}
+
+/* Show only the file input */
+.form-group input[type="file"] {
+    display: block !important;
+}
+
+/* Additional hiding for Django file field elements */
+.form-group br + a,
+.form-group a[href*="clear"],
+.form-group a[href*="Clear"],
+.form-group:has(input[type="file"]) a,
+.form-group:has(input[type="file"]) br {
+    display: none !important;
+}
+
+/* Hide any text nodes or elements after file input */
+.form-group:has(input[type="file"]) *:not(input[type="file"]):not(label) {
+    display: none !important;
+}
+
+/* Hide number input spinners for price fields */
+.form-group input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.form-group input[type="number"]::-webkit-outer-spin-button,
+.form-group input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* ---------------- Responsive ---------------- */

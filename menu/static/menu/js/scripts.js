@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Анімація кнопок на головній сторінці
+    // Animation for buttons on home page
     const buttons = document.querySelectorAll('.home .buttons a');
     buttons.forEach(button => {
         button.addEventListener('mouseenter', () => {
@@ -10,24 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Анімація карточок меню
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            if (!item.classList.contains('dragging')) {
-                item.style.transform = 'translateY(-5px)';
-                item.style.boxShadow = '0 8px 16px rgba(0,0,0,0.3)';
-            }
-        });
-        item.addEventListener('mouseleave', () => {
-            if (!item.classList.contains('dragging')) {
-                item.style.transform = 'translateY(0)';
-                item.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-            }
-        });
-    });
+    // Animation for menu cards removed
 
-    // Плавне скролювання для внутрішніх посилань
+    // Smooth scrolling for internal links
     const smoothLinks = document.querySelectorAll('a[href^="#"]');
     smoothLinks.forEach(link => {
         link.addEventListener('click', e => {
@@ -39,18 +24,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Drag and Drop функціональність тільки для dashboard
+    // Drag and Drop functionality only for dashboard
     if (window.location.pathname.includes('/modifiers/dashboard/')) {
         initDragAndDrop();
     }
     
-    // Coffee Information Modal функціональність
+    // Coffee Information Modal functionality
     if (window.location.pathname.includes('/coffee/') || document.querySelector('.coffee-page')) {
         initCoffeeModal();
     }
+    
+    // Toast Information Modal functionality
+    if (window.location.pathname.includes('/toasts/') || document.querySelector('.toasts-page')) {
+        initToastModal();
+    }
+    
+    // Sweet Information Modal functionality
+    if (window.location.pathname.includes('/sweets/') || document.querySelector('.sweets-page')) {
+        initSweetModal();
+    }
 });
 
-// Drag and Drop функціональність
+// Drag and Drop functionality
 function initDragAndDrop() {
     let draggedElement = null;
     let draggedGroup = null;
@@ -242,7 +237,7 @@ function initDragAndDrop() {
     }
 }
 
-// Анімація кнопок Staff Dashboard
+// Staff Dashboard button animation
 const dashboardButtons = document.querySelectorAll('.dashboard-btn');
 dashboardButtons.forEach(btn => {
     btn.addEventListener('mouseenter', () => {
@@ -253,93 +248,376 @@ dashboardButtons.forEach(btn => {
     });
 });
 
-// Coffee Information Modal функціональність
+// Coffee Information Modal functionality
 function initCoffeeModal() {
     const modal = document.getElementById('coffeeModal');
+    const imageModal = document.getElementById('imageModal');
     const closeBtn = document.querySelector('.close');
+    // Image close button removed
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
+    const modalImage = document.getElementById('modalImage');
     
-    // Перевіряємо, чи існують необхідні елементи
-    if (!modal || !closeBtn || !modalTitle || !modalBody) {
+    // Check if required elements exist
+    if (!imageModal || !modalImage) {
         return;
     }
     
-    // Отримуємо всі елементи кави з описом
-    const coffeeItems = document.querySelectorAll('.menu-item[data-description]');
+    // Get all coffee items with description or image
+    const coffeeItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
     
     coffeeItems.forEach(item => {
         item.style.cursor = 'pointer';
         
-        // Клік — відкриває модалку
+        // Click — opens modal
         item.addEventListener('click', function() {
             const description = this.dataset.description;
+            const image = this.dataset.image;
             const coffeeName = this.querySelector('h3').textContent;
             
-            if (description) {
-                // Скидаємо hover-ефект лише на час кліку
-                this.style.backgroundColor = '';
-                this.style.transform = '';
-                this.classList.add('clicked');
+            
+            // Reset hover effect only for click duration
+            this.style.backgroundColor = '';
+            this.style.transform = '';
+            this.classList.add('clicked');
 
+            setTimeout(() => {
+                this.classList.remove('clicked');
+            }, 300);
+
+            // If there is an image, show it
+            if (image) {
+                modalImage.src = image;
+                modalImage.alt = coffeeName;
+                imageModal.style.display = 'block';
+                
+                // Add smooth appearance
                 setTimeout(() => {
-                    this.classList.remove('clicked');
-                }, 300);
-
+                    imageModal.style.opacity = '1';
+                }, 10);
+            }
+            // If there is only description, show text modal (if available)
+            else if (description && modal && modalTitle && modalBody) {
                 modalTitle.textContent = coffeeName;
                 modalBody.textContent = description;
                 modal.style.display = 'block';
 
-                // Додаємо плавну появу
+                // Add smooth appearance
                 setTimeout(() => {
                     modal.style.opacity = '1';
                 }, 10);
             }
         });
 
-        // Hover ефект
-        item.addEventListener('mouseenter', function() {
-            if (
-                this.dataset.description &&
-                modal.style.display !== 'block' &&
-                !this.classList.contains('clicked')
-            ) {
-                this.style.backgroundColor = 'rgba(41, 51, 120, 0.1)';
-                this.style.transform = 'translateY(-2px)';
-            }
-        });
-
-        item.addEventListener('mouseleave', function() {
-            if (this.dataset.description && modal.style.display !== 'block') {
-                this.style.backgroundColor = '';
-                this.style.transform = '';
-            }
-        });
+        // Hover effect removed
     });
     
     function resetAllCoffeeItems() {
         coffeeItems.forEach(item => {
             item.style.backgroundColor = '';
             item.style.transform = '';
+            item.classList.remove('clicked');
         });
     }
     
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-        resetAllCoffeeItems();
-    });
-    
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
+    // Close text modal
+    if (closeBtn && modal) {
+        closeBtn.addEventListener('click', function() {
             modal.style.display = 'none';
+            resetAllCoffeeItems();
+        });
+    }
+    
+    // Close image modal button removed
+    
+    // Close on overlay click
+    window.addEventListener('click', function(event) {
+        if (modal && event.target === modal) {
+            modal.style.display = 'none';
+            resetAllCoffeeItems();
+        }
+        // Close image modal when clicking on overlay, modal itself, or modal-inner (but not on the image)
+        if (event.target === imageModal || 
+            event.target.classList.contains('modal-overlay') || 
+            (event.target.classList.contains('modal-inner') && event.target !== modalImage)) {
+            imageModal.style.display = 'none';
             resetAllCoffeeItems();
         }
     });
     
+    // Close on Escape
     document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && modal.style.display === 'block') {
+        if (event.key === 'Escape') {
+            if (modal && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                resetAllCoffeeItems();
+            }
+            if (imageModal.style.display === 'block') {
+                imageModal.style.display = 'none';
+                resetAllCoffeeItems();
+            }
+        }
+    });
+}
+
+// Toast Information Modal functionality
+function initToastModal() {
+    const modal = document.getElementById('toastModal');
+    const imageModal = document.getElementById('imageModal');
+    const allergensModal = document.getElementById('allergensModal');
+    const closeBtn = document.querySelector('.close');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const modalImage = document.getElementById('modalImage');
+    const allergensList = document.getElementById('allergensList');
+    
+    // Check if required elements exist
+    if (!imageModal || !modalImage) {
+        return;
+    }
+    
+    // Get all toast items with description or image
+    const toastItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
+    
+    toastItems.forEach(item => {
+        item.style.cursor = 'pointer';
+        
+        // Click — opens modal
+        item.addEventListener('click', function() {
+            const description = this.dataset.description;
+            const image = this.dataset.image;
+            const toastName = this.querySelector('h3').textContent;
+            
+            // If there is an image, show it
+            if (image) {
+                modalImage.src = image;
+                modalImage.alt = toastName;
+                imageModal.style.display = 'block';
+                
+                // Add smooth appearance
+                setTimeout(() => {
+                    imageModal.style.opacity = '1';
+                }, 10);
+            }
+            // If there is only description, show text modal (if available)
+            else if (description && modal && modalTitle && modalBody) {
+                modalTitle.textContent = toastName;
+                modalBody.textContent = description;
+                modal.style.display = 'block';
+
+                // Add smooth appearance
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                }, 10);
+            }
+        });
+    });
+    
+    // Handle allergens section
+    const allergensItem = document.querySelector('.allergens-item');
+    if (allergensItem) {
+        allergensItem.style.cursor = 'pointer';
+        allergensItem.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            // Populate allergens list
+            allergensList.innerHTML = `
+                <p><strong>Common Allergens:</strong></p>
+                <ul>
+                    <li>1 - Gluten</li>
+                    <li>2 - Dairy</li>
+                    <li>3 - Nuts</li>
+                    <li>4 - Eggs</li>
+                    <li>5 - Soy</li>
+                    <li>6 - Sesame</li>
+                </ul>
+            `;
+            allergensModal.style.display = 'block';
+        });
+    }
+    
+    function resetAllToastItems() {
+        toastItems.forEach(item => {
+            item.style.backgroundColor = '';
+            item.style.transform = '';
+            item.classList.remove('clicked');
+        });
+    }
+    
+    // Close text modal
+    if (closeBtn && modal) {
+        closeBtn.addEventListener('click', function() {
             modal.style.display = 'none';
-            resetAllCoffeeItems();
+            resetAllToastItems();
+        });
+    }
+    
+    // Close on overlay click
+    window.addEventListener('click', function(event) {
+        if (modal && event.target === modal) {
+            modal.style.display = 'none';
+            resetAllToastItems();
+        }
+        // Close image modal when clicking on overlay, modal itself, or modal-inner (but not on the image)
+        if (event.target === imageModal || 
+            event.target.classList.contains('modal-overlay') || 
+            (event.target.classList.contains('modal-inner') && event.target !== modalImage)) {
+            imageModal.style.display = 'none';
+            resetAllToastItems();
+        }
+        // Close allergens modal
+        if (event.target === allergensModal) {
+            allergensModal.style.display = 'none';
+            resetAllToastItems();
+        }
+    });
+    
+    // Close on Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            if (modal && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                resetAllToastItems();
+            }
+            if (imageModal.style.display === 'block') {
+                imageModal.style.display = 'none';
+                resetAllToastItems();
+            }
+            if (allergensModal.style.display === 'block') {
+                allergensModal.style.display = 'none';
+                resetAllToastItems();
+            }
+        }
+    });
+}
+
+// Sweet Information Modal functionality
+function initSweetModal() {
+    const modal = document.getElementById('sweetModal');
+    const imageModal = document.getElementById('imageModal');
+    const allergensModal = document.getElementById('allergensModal');
+    const closeBtn = document.querySelector('.close');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const modalImage = document.getElementById('modalImage');
+    const allergensList = document.getElementById('allergensList');
+    
+    // Check if required elements exist
+    if (!imageModal || !modalImage) {
+        return;
+    }
+    
+    // Get all sweet items with description or image
+    const sweetItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
+    
+    sweetItems.forEach(item => {
+        item.style.cursor = 'pointer';
+        
+        // Click — opens modal
+        item.addEventListener('click', function() {
+            const description = this.dataset.description;
+            const image = this.dataset.image;
+            const sweetName = this.querySelector('h3').textContent;
+            
+            // If there is an image, show it
+            if (image) {
+                modalImage.src = image;
+                modalImage.alt = sweetName;
+                imageModal.style.display = 'block';
+                
+                // Add smooth appearance
+                setTimeout(() => {
+                    imageModal.style.opacity = '1';
+                }, 10);
+            }
+            // If there is only description, show text modal (if available)
+            else if (description && modal && modalTitle && modalBody) {
+                modalTitle.textContent = sweetName;
+                modalBody.textContent = description;
+                modal.style.display = 'block';
+
+                // Add smooth appearance
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                }, 10);
+            }
+        });
+    });
+    
+    // Handle allergens section
+    const allergensItem = document.querySelector('.allergens-item');
+    if (allergensItem) {
+        allergensItem.style.cursor = 'pointer';
+        allergensItem.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            // Populate allergens list
+            allergensList.innerHTML = `
+                <p><strong>Common Allergens:</strong></p>
+                <ul>
+                    <li>1 - Gluten</li>
+                    <li>2 - Dairy</li>
+                    <li>3 - Nuts</li>
+                    <li>4 - Eggs</li>
+                    <li>5 - Soy</li>
+                    <li>6 - Sesame</li>
+                </ul>
+            `;
+            allergensModal.style.display = 'block';
+        });
+    }
+    
+    function resetAllSweetItems() {
+        sweetItems.forEach(item => {
+            item.style.backgroundColor = '';
+            item.style.transform = '';
+            item.classList.remove('clicked');
+        });
+    }
+    
+    // Close text modal
+    if (closeBtn && modal) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            resetAllSweetItems();
+        });
+    }
+    
+    // Close on overlay click
+    window.addEventListener('click', function(event) {
+        if (modal && event.target === modal) {
+            modal.style.display = 'none';
+            resetAllSweetItems();
+        }
+        // Close image modal when clicking on overlay, modal itself, or modal-inner (but not on the image)
+        if (event.target === imageModal || 
+            event.target.classList.contains('modal-overlay') || 
+            (event.target.classList.contains('modal-inner') && event.target !== modalImage)) {
+            imageModal.style.display = 'none';
+            resetAllSweetItems();
+        }
+        // Close allergens modal
+        if (event.target === allergensModal) {
+            allergensModal.style.display = 'none';
+            resetAllSweetItems();
+        }
+    });
+    
+    // Close on Escape
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            if (modal && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                resetAllSweetItems();
+            }
+            if (imageModal.style.display === 'block') {
+                imageModal.style.display = 'none';
+                resetAllSweetItems();
+            }
+            if (allergensModal.style.display === 'block') {
+                allergensModal.style.display = 'none';
+                resetAllSweetItems();
+            }
         }
     });
 }

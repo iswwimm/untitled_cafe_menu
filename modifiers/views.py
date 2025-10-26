@@ -63,7 +63,12 @@ def add_item(request, category):
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            # Handle allergens for toast and sweet
+            if category in ['toast', 'sweet'] and 'allergens' in form.cleaned_data:
+                allergens_list = form.cleaned_data['allergens']
+                instance.allergens = ', '.join(allergens_list) if allergens_list else ''
+            instance.save()
             return redirect('modifiers:dashboard')
     else:
         form = form_class()
@@ -85,10 +90,19 @@ def edit_item(request, category, pk):
     if request.method == 'POST':
         form = form_class(request.POST, request.FILES, instance=instance)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            # Handle allergens for toast and sweet
+            if category in ['toast', 'sweet'] and 'allergens' in form.cleaned_data:
+                allergens_list = form.cleaned_data['allergens']
+                instance.allergens = ', '.join(allergens_list) if allergens_list else ''
+            instance.save()
             return redirect('modifiers:dashboard')
     else:
         form = form_class(instance=instance)
+        # Pre-populate allergens for toast and sweet
+        if category in ['toast', 'sweet'] and instance.allergens:
+            allergens_list = [a.strip() for a in instance.allergens.split(',') if a.strip()]
+            form.fields['allergens'].initial = allergens_list
 
     return render(
         request, 

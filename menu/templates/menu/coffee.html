@@ -6,12 +6,14 @@
 
 {% block content %}
 <div class="menu-page">
-    <h1 class="logo">untitled <span>coffee</span></h1>
+    <div class="logo">
+        <img src="{% static 'menu/images/logo_coffee_1.png' %}" alt="Untitled Coffee" class="logo-img">
+    </div>
 
     {% for group in groups %}
         <div class="menu-list" data-group="{{ group.key }}">
             {% for coffee in group.items %}
-                <div class="menu-item {{ group.class }}" data-id="{{ coffee.id }}" {% if coffee.description %}data-description="{{ coffee.description }}"{% endif %}>
+                <div class="menu-item {{ group.class }}" data-id="{{ coffee.id }}" {% if coffee.description %}data-description="{{ coffee.description }}"{% endif %} {% if coffee.image %}data-image="{{ coffee.image.url }}"{% endif %}>
                     <div class="menu-left">
                         {% if coffee.temperature == 'both' %}
                             <p class="temp">hot/iced</p>
@@ -40,11 +42,19 @@
 </div>
 
 <!-- Coffee Information Modal -->
-<div id="coffeeModal" class="modal">
+<div id="coffeeModal" class="modal" aria-hidden="true">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2 id="modalTitle"></h2>
-        <div id="modalBody"></div>
+        <h3 id="modalTitle"></h3>
+        <p id="modalBody"></p>
+    </div>
+</div>
+
+<!-- Image Modal -->
+<div id="imageModal" class="modal" aria-hidden="true">
+    <div class="modal-overlay"></div>
+    <div class="modal-inner">
+        <img id="modalImage" src="" alt="" />
     </div>
 </div>
 

@@ -21,7 +21,8 @@ class Coffee(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     price_2 = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
     temperature = models.CharField(max_length=10, choices=TEMPERATURE_CHOICES, blank=True, null=True)
-    description = models.TextField(blank=True, null=True, help_text="Optional description for coffee information modal")
+    image = models.ImageField(upload_to='menu/images/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
 
     is_active = models.BooleanField(default=True)
@@ -56,7 +57,6 @@ class Coffee(models.Model):
 class Toast(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='menu/images/', blank=True, null=True)
-    ingredients = models.TextField()
     description = models.TextField(blank=True)
     allergens = models.TextField(blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
@@ -79,7 +79,6 @@ class Toast(models.Model):
 class Sweet(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='menu/images/', blank=True, null=True)
-    ingredients = models.TextField()
     description = models.TextField(blank=True)
     allergens = models.TextField(blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
