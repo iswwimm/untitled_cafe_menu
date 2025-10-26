@@ -281,6 +281,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For support and questions:
 - 📖 **Troubleshooting Guide:** See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common issues and solutions
 - 🐳 **Docker Guide:** See [DOCKER.md](DOCKER.md) for Docker setup and deployment
+- 🚀 **Render Deployment:** See [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md) for production deployment guide
 - Create an issue on GitHub
 - Check the test suite for usage examples
 - Review the management commands for data setup
