@@ -264,28 +264,7 @@ docker run -p 8000:8000 \
 - [ ] Set up SSL/HTTPS
 - [ ] Configure logging
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Support
-
-For support and questions:
-- 📖 **Troubleshooting Guide:** See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for common issues and solutions
-- 🐳 **Docker Guide:** See [DOCKER.md](DOCKER.md) for Docker setup and deployment
-- 🚀 **Render Deployment:** See [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md) for production deployment guide
-- Create an issue on GitHub
-- Check the test suite for usage examples
-- Review the management commands for data setup
-
----
-
-**Built with ❤️ for coffee lovers everywhere**

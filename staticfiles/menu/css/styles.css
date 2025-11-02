@@ -112,7 +112,7 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;                
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: 'Montserrat Classic', sans-serif;
   font-size: clamp(0.4rem, 1.5vw, 0.8rem);                 
   color: #293378;                               
   margin-top: 150px;              
@@ -130,7 +130,7 @@ body {
 .menu-page {
     text-align: left;
     padding: 40px 30px 40px;
-    color: #293378;;
+    color: #293378;
     min-height: 100vh;
 }
 
@@ -435,6 +435,29 @@ body {
     hyphens: none;
 }
 
+/* Inline allergens styling */
+.menu-center .description .allergens-inline {
+    display: inline;
+    font-size: clamp(0.0rem, 1.2vw, 0.85rem);
+    color: #293378;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 8px;
+}
+
+/* Inline allergens styling for toasts and sweets */
+.toasts-page .menu-center .description .allergens-inline,
+.sweets-page .menu-center .description .allergens-inline {
+    display: inline;
+    font-size: clamp(0.0rem, 1.3vw, 0.9rem);
+    color: #293378;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-left: 10px;
+}
+
 /* Allergens section */
 .allergens-section {
     margin-top: 40px;
@@ -468,8 +491,11 @@ body {
 }
 
 
-/* Responsive Modal */
+/* ===================== */
+/* 📱 Responsive: tablets */
+/* ===================== */
 @media (max-width: 768px) {
+    /* Modal styles */
     .modal-content {
         margin: 10% auto;
         padding: 20px;
@@ -483,26 +509,8 @@ body {
     #modalBody {
         font-size: 0.9rem;
     }
-}
-@media (max-width: 480px) {
-    .modal-content {
-        margin: 15% auto;
-        padding: 15px;
-        width: 80%;
-    }
-    
-    #modalTitle {
-        font-size: 1.2rem;
-    }
-    
-    #modalBody {
-        font-size: 0.85rem;
-    }
-}
 
-
-/* 📱 Responsive: tablets */
-@media (max-width: 768px) {
+    /* Menu styles */
     .menu-list {
         padding: 20px 50px;
         max-width: 450px;
@@ -515,9 +523,10 @@ body {
         grid-template-columns: 0.8fr 2fr 0.8fr;
         margin-bottom: -10px;
     }
+
     .menu-left {
         min-width: 60px;
-}
+    }
 
     .menu-item h3 {
         font-size: clamp(0.0rem, 3vw, 1.2rem);
@@ -532,8 +541,26 @@ body {
     }
 }
 
+/* ===================== */
 /* 📱 Responsive: mobile */
+/* ===================== */
 @media (max-width: 480px) {
+    /* Modal styles */
+    .modal-content {
+        margin: 15% auto;
+        padding: 15px;
+        width: 80%;
+    }
+    
+    #modalTitle {
+        font-size: 1.2rem;
+    }
+    
+    #modalBody {
+        font-size: 0.85rem;
+    }
+
+    /* Menu styles */
     .menu-list {
         padding: 20px 40px;
         max-width: 100%;
@@ -545,9 +572,11 @@ body {
         grid-template-columns: 0.7fr 2fr 0.7fr;
         margin-bottom: -8px;
     }
+
     .menu-left {
         min-width: 40px;
-}
+    }
+
     .menu-item h3 {
         font-size: clamp(0.0rem, 3vw, 1.0rem);
     }
@@ -685,301 +714,4 @@ body {
     font-size: 1rem;
     color: #333;
     margin-bottom: 5px;
-}
-/* ===================== */
-/* 🧾 Staff Dashboard */
-.dashboard-container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-}
-
-.dashboard-container h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #2c3e50;
-    text-align: center;
-}
-
-.dashboard-container p a.btn {
-    display: inline-block;
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background-color: #6b4226;
-    color: #fff;
-    border-radius: 12px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.dashboard-container p a.btn:hover {
-    background-color: #a67853;
-    transform: scale(1.05);
-}
-
-/* ===================== */
-/* 📂 Sections */
-.dashboard-section {
-    margin-bottom: 25px;
-    padding: 15px;
-    background-color: #f8f8f8;
-    border-radius: 14px;
-}
-
-.dashboard-section h3 {
-    font-size: 1.4rem;
-    margin-bottom: 12px;
-    color: #34495e;
-}
-
-.dashboard-section h4 {
-    font-size: 1.1rem;
-    margin-top: 12px;
-    margin-bottom: 8px;
-    color: #555;
-}
-
-/* ===================== */
-/* 📋 Item Lists */
-ul.item-list {
-    list-style: none;
-    padding: 10px 25px;       
-    margin: 20px auto;        
-}
-
-ul.item-list li.item {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #ffffff;
-    padding: 10px 14px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-ul.item-list li.item:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-ul.item-list li.item img.thumbnail {
-    width: 45px;
-    height: 45px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-right: 12px;
-}
-
-ul.item-list li.item span {
-    flex: 1 1 150px;
-    font-size: 0.95rem;
-    color: #2c3e50;
-    margin-right: 10px;
-}
-
-/* ===================== */
-/* 🎛 Action Buttons */
-.actions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
-.actions a.btn {
-    padding: 5px 10px;
-    background-color: #6b4226;
-    color: #fff;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.actions a.btn:hover {
-    background-color: #a67853;
-    transform: scale(1.05);
-}
-
-.actions a.delete-btn {
-    background-color: #e74c3c;
-}
-
-.actions a.delete-btn:hover {
-    background-color: #c0392b;
-}
-
-/* ===================== */
-/* 🎨 Coffee Groups Highlight */
-.group-basic {
-    border-left: 4px solid #3498db;
-    padding-left: 10px;
-}
-
-.group-alternative {
-    border-left: 4px solid #e67e22;
-    padding-left: 10px;
-}
-
-.group-other {
-    border-left: 4px solid #2ecc71;
-    padding-left: 10px;
-}
-
-.group-addon {
-    border-left: 4px solid #f1c40f;
-    padding-left: 10px;
-}
-
-/* ===================== */
-/* 🖼 Form Styling */
-.form-container {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.form-container h2 {
-    font-size: 1.6rem;
-    margin-bottom: 15px;
-    color: #2c3e50;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 12px;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 5px;
-    color: #34495e;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    padding: 8px 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border 0.3s;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: #3498db;
-}
-
-button.btn {
-    padding: 8px 18px;
-    background-color: #6b4226;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.3s, transform 0.2s;
-}
-
-button.btn:hover {
-    background-color: #a67853;
-    transform: scale(1.05);
-}
-
-a.cancel-btn {
-    margin-left: 8px;
-    padding: 8px 18px;
-    background-color: #95a5a6;
-    color: #fff;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-a.cancel-btn:hover {
-    background-color: #7f8c8d;
-}
-
-/* ===================== */
-/* 📱 Responsive: Mobile */
-@media (max-width: 768px) {
-    .dashboard-container {
-        padding: 15px;
-        margin: 15px;
-    }
-
-    ul.item-list li.item {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
-
-    ul.item-list li.item img.thumbnail {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 6px;
-    }
-
-    ul.item-list li.item span {
-        margin-bottom: 6px;
-    }
-
-    .actions {
-        width: 100%;
-        justify-content: flex-start;
-    }
-
-    .actions a.btn {
-        flex: 1 1 auto;
-        font-size: 0.85rem;
-        padding: 6px 10px;
-    }
-
-    .form-container {
-        padding: 15px;
-        margin: 10px;
-    }
-
-    .form-container h2 {
-        font-size: 1.5rem;
-    }
-
-    button.btn, a.cancel-btn {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-}
-
-/* ===================== */
-/* 📱 Responsive: Small Mobile */
-@media (max-width: 480px) {
-    .dashboard-container h2 {
-        font-size: 1.4rem;
-    }
-
-    .dashboard-section h3 {
-        font-size: 1.2rem;
-    }
-
-    .dashboard-section h4 {
-        font-size: 1rem;
-    }
-
-    ul.item-list li.item span {
-        font-size: 0.9rem;
-    }
-
-    .actions a.btn {
-        font-size: 0.8rem;
-        padding: 5px 8px;
-    }
 }

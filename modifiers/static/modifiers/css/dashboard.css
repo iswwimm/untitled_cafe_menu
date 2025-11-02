@@ -1,171 +1,264 @@
-/* ---------------- General ---------------- */
-body {
-    color: #293378;
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-weight: bold;
-}
+/* ===================== */
+/* 🧾 Staff Dashboard */
+/* ===================== */
 
+/* ===================== */
+/* 📦 Container */
+/* ===================== */
 .dashboard-container {
     max-width: 900px;
-    margin: 40px auto;
+    margin: 20px auto;
     padding: 20px;
 }
 
-h2 {
+.dashboard-container h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
     text-align: center;
-    margin-bottom: 30px;
 }
 
+.dashboard-container p a.btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #6b4226;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.dashboard-container p a.btn:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
+}
+
+/* ===================== */
+/* 📂 Sections */
+/* ===================== */
 .dashboard-section {
-    margin-bottom: 40px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-radius: 14px;
 }
 
 .dashboard-section h3 {
-    margin-bottom: 10px;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: #34495e;
 }
 
-/* ---------------- Buttons ---------------- */
-.btn {
+.dashboard-section h4 {
+    font-size: 1.1rem;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* Add buttons in dashboard sections */
+.dashboard-section a.btn.add-btn {
     display: inline-block;
-    padding: 6px 12px;
-    margin: 2px;
-    font-size: 14px;
-    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background-color: #6b4226;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
     border: none;
     cursor: pointer;
+}
+
+.dashboard-section a.btn.add-btn:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
     text-decoration: none;
-    color: white;
-    background-color: #3498db;
-    transition: 0.2s;
 }
 
-.btn:hover {
-    background-color: #2980b9;
+.dashboard-section a.btn.add-btn:active {
+    transform: scale(0.98);
 }
 
-.add-btn {
-    margin-bottom: 10px;
+/* ===================== */
+/* 📋 Item Lists */
+/* ===================== */
+ul.item-list {
+    list-style: none;
+    padding: 10px 25px;
+    margin: 20px auto;
 }
 
-.cancel-btn {
-    background-color: #7f8c8d;
+ul.item-list li.item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.cancel-btn:hover {
-    background-color: #636e72;
+ul.item-list li.item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.delete-btn {
+ul.item-list li.item img.thumbnail {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+ul.item-list li.item span {
+    flex: 1 1 150px;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    margin-right: 10px;
+}
+
+/* ===================== */
+/* 🎛 Action Buttons */
+/* ===================== */
+.actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.actions a.btn {
+    padding: 5px 10px;
+    background-color: #6b4226;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.actions a.btn:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
+}
+
+.actions a.delete-btn {
     background-color: #e74c3c;
 }
 
-.delete-btn:hover {
+.actions a.delete-btn:hover {
     background-color: #c0392b;
 }
 
-/* ---------------- Lists ---------------- */
-.item-list {
-    list-style: none;
-    padding: 0;
+/* ===================== */
+/* 🎨 Coffee Groups Highlight */
+/* ===================== */
+.group-basic {
+    border-left: 4px solid #3498db;
+    padding-left: 10px;
 }
 
-.item-list .item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: white;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+.group-alternative {
+    border-left: 4px solid #e67e22;
+    padding-left: 10px;
 }
 
-.item-list .item span {
-    flex: 1;
-    margin-left: 10px;
+.group-other {
+    border-left: 4px solid #2ecc71;
+    padding-left: 10px;
 }
 
-.temp-indicator {
-    background-color: #e8f4fd;
-    color: #2980b9;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 12px;
-    margin-left: 8px;
-    border: 1px solid #b3d9ff;
+.group-addon {
+    border-left: 4px solid #f1c40f;
+    padding-left: 10px;
 }
 
-/* ---------------- Thumbnails ---------------- */
-.thumbnail {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-/* ---------------- Form ---------------- */
+/* ===================== */
+/* 🖼 Form Styling */
+/* ===================== */
 .form-container {
-    max-width: 500px;
     margin: 20px auto;
-    padding: 25px;
-    background-color: #f2f2f2;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-.form-container form {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-container form input,
-.form-container form select,
-.form-container form textarea {
+.form-container h2 {
+    font-size: 1.6rem;
     margin-bottom: 15px;
-    padding: 8px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    color: #2c3e50;
+    text-align: center;
 }
 
-.form-container img.thumbnail {
-    margin-bottom: 10px;
+.form-group {
+    margin-bottom: 12px;
 }
 
-/* ---------------- Drag and Drop ---------------- */
-.draggable-item[draggable="true"] {
-    cursor: move;
-    transition: all 0.3s ease;
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #34495e;
 }
 
-.draggable-item.dragging {
-    opacity: 0.5;
-    transform: rotate(2deg);
-    z-index: 1000;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-.draggable-item.drop-target {
-    border-top: 3px solid #3498db;
-    transform: translateY(-2px);
-}
-
-.draggable-item.touch-dragging {
-    opacity: 0.7;
-    z-index: 1000;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-}
-
-.draggable-list {
-    transition: all 0.3s ease;
-}
-
-.draggable-list.drag-over {
-    background-color: rgba(52, 152, 219, 0.05);
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 8px 10px;
     border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.3s;
 }
 
-/* ---------------- Checkbox styles for allergens ---------------- */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #3498db;
+}
+
+button.btn {
+    padding: 8px 18px;
+    background-color: #6b4226;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button.btn:hover {
+    background-color: #a67853;
+    transform: scale(1.05);
+}
+
+a.cancel-btn {
+    margin-left: 8px;
+    padding: 8px 18px;
+    background-color: #95a5a6;
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+a.cancel-btn:hover {
+    background-color: #7f8c8d;
+}
+
+/* ===================== */
+/* ✅ Checkbox styles for allergens */
+/* ===================== */
 .allergens-checkboxes {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -226,19 +319,14 @@ h2 {
     color: inherit;
 }
 
-/* Ensure labels are visible */
 .allergens-checkboxes label:not([for]) {
     display: inline;
     margin-left: 5px;
 }
 
-.form-group label {
-    margin-bottom: 3px;
-    font-weight: bold;
-    display: block;
-}
-
-/* Hide current image display */
+/* ===================== */
+/* 📸 File Input Styling */
+/* ===================== */
 .form-group input[type="file"] + br,
 .form-group input[type="file"] + a,
 .form-group input[type="file"] + div,
@@ -247,22 +335,18 @@ h2 {
     display: none !important;
 }
 
-/* Hide "Currently:" text and clear link */
 .form-group input[type="file"] ~ * {
     display: none !important;
 }
 
-/* Hide any text that contains "Currently:" */
-.form-group:has(input[type="file"]) *:not(input[type="file"]) {
+.form-group:has(input[type="file"]) *:not(input[type="file"]):not(label) {
     display: none !important;
 }
 
-/* Show only the file input */
 .form-group input[type="file"] {
     display: block !important;
 }
 
-/* Additional hiding for Django file field elements */
 .form-group br + a,
 .form-group a[href*="clear"],
 .form-group a[href*="Clear"],
@@ -271,12 +355,13 @@ h2 {
     display: none !important;
 }
 
-/* Hide any text nodes or elements after file input */
 .form-group:has(input[type="file"]) *:not(input[type="file"]):not(label) {
     display: none !important;
 }
 
-/* Hide number input spinners for price fields */
+/* ===================== */
+/* 🔢 Number Input Styling */
+/* ===================== */
 .form-group input[type="number"] {
     -moz-appearance: textfield;
     appearance: textfield;
@@ -288,14 +373,79 @@ h2 {
     margin: 0;
 }
 
-/* ---------------- Responsive ---------------- */
-@media (max-width: 600px) {
-    .item-list .item {
-        flex-direction: column;
-        align-items: flex-start;
+/* ===================== */
+/* 📱 Responsive: Mobile */
+/* ===================== */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 15px;
+        margin: 15px;
     }
 
-    .item-list .actions {
-        margin-top: 8px;
+    ul.item-list li.item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    ul.item-list li.item img.thumbnail {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 6px;
+    }
+
+    ul.item-list li.item span {
+        margin-bottom: 6px;
+    }
+
+    .actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .actions a.btn {
+        flex: 1 1 auto;
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+
+    .form-container {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+
+    button.btn, a.cancel-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* ===================== */
+/* 📱 Responsive: Small Mobile */
+/* ===================== */
+@media (max-width: 480px) {
+    .dashboard-container h2 {
+        font-size: 1.4rem;
+    }
+
+    .dashboard-section h3 {
+        font-size: 1.2rem;
+    }
+
+    .dashboard-section h4 {
+        font-size: 1rem;
+    }
+
+    ul.item-list li.item span {
+        font-size: 0.9rem;
+    }
+
+    .actions a.btn {
+        font-size: 0.8rem;
+        padding: 5px 8px;
     }
 }

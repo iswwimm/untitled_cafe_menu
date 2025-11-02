@@ -264,60 +264,62 @@ function initCoffeeModal() {
     }
     
     // Get all coffee items with description or image
-    const coffeeItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
+    // MODAL FUNCTIONALITY DISABLED - Keep code for future activation
+    // const coffeeItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
     
-    coffeeItems.forEach(item => {
-        item.style.cursor = 'pointer';
-        
-        // Click — opens modal
-        item.addEventListener('click', function() {
-            const description = this.dataset.description;
-            const image = this.dataset.image;
-            const coffeeName = this.querySelector('h3').textContent;
-            
-            
-            // Reset hover effect only for click duration
-            this.style.backgroundColor = '';
-            this.style.transform = '';
-            this.classList.add('clicked');
+    // coffeeItems.forEach(item => {
+    //     item.style.cursor = 'pointer';
+    //     
+    //     // Click — opens modal
+    //     item.addEventListener('click', function() {
+    //         const description = this.dataset.description;
+    //         const image = this.dataset.image;
+    //         const coffeeName = this.querySelector('h3').textContent;
+    //         
+    //         
+    //         // Reset hover effect only for click duration
+    //         this.style.backgroundColor = '';
+    //         this.style.transform = '';
+    //         this.classList.add('clicked');
 
-            setTimeout(() => {
-                this.classList.remove('clicked');
-            }, 300);
+    //         setTimeout(() => {
+    //             this.classList.remove('clicked');
+    //         }, 300);
 
-            // If there is an image, show it
-            if (image) {
-                modalImage.src = image;
-                modalImage.alt = coffeeName;
-                imageModal.style.display = 'block';
-                
-                // Add smooth appearance
-                setTimeout(() => {
-                    imageModal.style.opacity = '1';
-                }, 10);
-            }
-            // If there is only description, show text modal (if available)
-            else if (description && modal && modalTitle && modalBody) {
-                modalTitle.textContent = coffeeName;
-                modalBody.textContent = description;
-                modal.style.display = 'block';
+    //         // If there is an image, show it
+    //         if (image) {
+    //             modalImage.src = image;
+    //             modalImage.alt = coffeeName;
+    //             imageModal.style.display = 'block';
+    //             
+    //             // Add smooth appearance
+    //             setTimeout(() => {
+    //                 imageModal.style.opacity = '1';
+    //             }, 10);
+    //         }
+    //         // If there is only description, show text modal (if available)
+    //         else if (description && modal && modalTitle && modalBody) {
+    //             modalTitle.textContent = coffeeName;
+    //             modalBody.textContent = description;
+    //             modal.style.display = 'block';
 
-                // Add smooth appearance
-                setTimeout(() => {
-                    modal.style.opacity = '1';
-                }, 10);
-            }
-        });
+    //             // Add smooth appearance
+    //             setTimeout(() => {
+    //                 modal.style.opacity = '1';
+    //             }, 10);
+    //         }
+    //     });
 
-        // Hover effect removed
-    });
+    //     // Hover effect removed
+    // });
     
     function resetAllCoffeeItems() {
-        coffeeItems.forEach(item => {
-            item.style.backgroundColor = '';
-            item.style.transform = '';
-            item.classList.remove('clicked');
-        });
+        // MODAL FUNCTIONALITY DISABLED - Function kept for future activation
+        // coffeeItems.forEach(item => {
+        //     item.style.backgroundColor = '';
+        //     item.style.transform = '';
+        //     item.classList.remove('clicked');
+        // });
     }
     
     // Close text modal
@@ -377,41 +379,47 @@ function initToastModal() {
     }
     
     // Get all toast items with description or image
-    const toastItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
+    // MODAL FUNCTIONALITY DISABLED - Keep code for future activation
+    // const toastItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
     
-    toastItems.forEach(item => {
-        item.style.cursor = 'pointer';
-        
-        // Click — opens modal
-        item.addEventListener('click', function() {
-            const description = this.dataset.description;
-            const image = this.dataset.image;
-            const toastName = this.querySelector('h3').textContent;
-            
-            // If there is an image, show it
-            if (image) {
-                modalImage.src = image;
-                modalImage.alt = toastName;
-                imageModal.style.display = 'block';
-                
-                // Add smooth appearance
-                setTimeout(() => {
-                    imageModal.style.opacity = '1';
-                }, 10);
-            }
-            // If there is only description, show text modal (if available)
-            else if (description && modal && modalTitle && modalBody) {
-                modalTitle.textContent = toastName;
-                modalBody.textContent = description;
-                modal.style.display = 'block';
+    // toastItems.forEach(item => {
+    //     // Skip allergens item - it should remain functional
+    //     // if (item.classList.contains('allergens-item')) {
+    //     //     return;
+    //     // }
+    //     
+    //     item.style.cursor = 'pointer';
+    //     
+    //     // Click — opens modal
+    //     item.addEventListener('click', function() {
+    //         const description = this.dataset.description;
+    //         const image = this.dataset.image;
+    //         const toastName = this.querySelector('h3').textContent;
+    //         
+    //         // If there is an image, show it
+    //         if (image) {
+    //             modalImage.src = image;
+    //             modalImage.alt = toastName;
+    //             imageModal.style.display = 'block';
+    //             
+    //             // Add smooth appearance
+    //             setTimeout(() => {
+    //                 imageModal.style.opacity = '1';
+    //             }, 10);
+    //         }
+    //         // If there is only description, show text modal (if available)
+    //         else if (description && modal && modalTitle && modalBody) {
+    //             modalTitle.textContent = toastName;
+    //             modalBody.textContent = description;
+    //             modal.style.display = 'block';
 
-                // Add smooth appearance
-                setTimeout(() => {
-                    modal.style.opacity = '1';
-                }, 10);
-            }
-        });
-    });
+    //             // Add smooth appearance
+    //             setTimeout(() => {
+    //                 modal.style.opacity = '1';
+    //             }, 10);
+    //         }
+    //     });
+    // });
     
     // Handle allergens section
     const allergensItem = document.querySelector('.allergens-item');
@@ -437,11 +445,12 @@ function initToastModal() {
     }
     
     function resetAllToastItems() {
-        toastItems.forEach(item => {
-            item.style.backgroundColor = '';
-            item.style.transform = '';
-            item.classList.remove('clicked');
-        });
+        // MODAL FUNCTIONALITY DISABLED - Function kept for future activation
+        // toastItems.forEach(item => {
+        //     item.style.backgroundColor = '';
+        //     item.style.transform = '';
+        //     item.classList.remove('clicked');
+        // });
     }
     
     // Close text modal
@@ -508,41 +517,47 @@ function initSweetModal() {
     }
     
     // Get all sweet items with description or image
-    const sweetItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
+    // MODAL FUNCTIONALITY DISABLED - Keep code for future activation
+    // const sweetItems = document.querySelectorAll('.menu-item[data-description], .menu-item[data-image]');
     
-    sweetItems.forEach(item => {
-        item.style.cursor = 'pointer';
-        
-        // Click — opens modal
-        item.addEventListener('click', function() {
-            const description = this.dataset.description;
-            const image = this.dataset.image;
-            const sweetName = this.querySelector('h3').textContent;
-            
-            // If there is an image, show it
-            if (image) {
-                modalImage.src = image;
-                modalImage.alt = sweetName;
-                imageModal.style.display = 'block';
-                
-                // Add smooth appearance
-                setTimeout(() => {
-                    imageModal.style.opacity = '1';
-                }, 10);
-            }
-            // If there is only description, show text modal (if available)
-            else if (description && modal && modalTitle && modalBody) {
-                modalTitle.textContent = sweetName;
-                modalBody.textContent = description;
-                modal.style.display = 'block';
+    // sweetItems.forEach(item => {
+    //     // Skip allergens item - it should remain functional
+    //     // if (item.classList.contains('allergens-item')) {
+    //     //     return;
+    //     // }
+    //     
+    //     item.style.cursor = 'pointer';
+    //     
+    //     // Click — opens modal
+    //     item.addEventListener('click', function() {
+    //         const description = this.dataset.description;
+    //         const image = this.dataset.image;
+    //         const sweetName = this.querySelector('h3').textContent;
+    //         
+    //         // If there is an image, show it
+    //         if (image) {
+    //             modalImage.src = image;
+    //             modalImage.alt = sweetName;
+    //             imageModal.style.display = 'block';
+    //             
+    //             // Add smooth appearance
+    //             setTimeout(() => {
+    //                 imageModal.style.opacity = '1';
+    //             }, 10);
+    //         }
+    //         // If there is only description, show text modal (if available)
+    //         else if (description && modal && modalTitle && modalBody) {
+    //             modalTitle.textContent = sweetName;
+    //             modalBody.textContent = description;
+    //             modal.style.display = 'block';
 
-                // Add smooth appearance
-                setTimeout(() => {
-                    modal.style.opacity = '1';
-                }, 10);
-            }
-        });
-    });
+    //             // Add smooth appearance
+    //             setTimeout(() => {
+    //                 modal.style.opacity = '1';
+    //             }, 10);
+    //         }
+    //     });
+    // });
     
     // Handle allergens section
     const allergensItem = document.querySelector('.allergens-item');
@@ -568,11 +583,12 @@ function initSweetModal() {
     }
     
     function resetAllSweetItems() {
-        sweetItems.forEach(item => {
-            item.style.backgroundColor = '';
-            item.style.transform = '';
-            item.classList.remove('clicked');
-        });
+        // MODAL FUNCTIONALITY DISABLED - Function kept for future activation
+        // sweetItems.forEach(item => {
+        //     item.style.backgroundColor = '';
+        //     item.style.transform = '';
+        //     item.classList.remove('clicked');
+        // });
     }
     
     // Close text modal
