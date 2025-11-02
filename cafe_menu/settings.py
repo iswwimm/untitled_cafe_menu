@@ -85,6 +85,10 @@ WSGI_APPLICATION = 'cafe_menu.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Database configuration
+
+from dotenv import load_dotenv
+load_dotenv()
+
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
