@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +49,8 @@ INSTALLED_APPS = [
     # Custom apps
     'menu',
     'modifiers',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 
@@ -61,6 +66,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cafe_menu.urls'
+
+
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 TEMPLATES = [
     {
@@ -85,9 +96,6 @@ WSGI_APPLICATION = 'cafe_menu.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Database configuration
-
-from dotenv import load_dotenv
-load_dotenv()
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
