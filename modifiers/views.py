@@ -1,4 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
+from django.contrib import messages
+from functools import wraps
 from menu.models import Coffee, Toast, Sweet
 from .forms import CoffeeForm, ToastForm, SweetForm
 from collections import defaultdict
@@ -16,7 +19,46 @@ COFFEE_GROUPS = [
     {'key': 'addon', 'name': 'Add-ons'},
 ]
 
+
+def staff_only(view_func):
+    """Декоратор для перевірки доступу до staff сторінок"""
+    @wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        if not request.session.get('staff_access', False):
+            return redirect('modifiers:enter_password')
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+
+def enter_password(request):
+    """View для введення пароля доступу"""
+    if request.session.get('staff_access', False):
+        return redirect('modifiers:dashboard')
+    
+    if request.method == 'POST':
+        password = request.POST.get('password', '')
+        if password == settings.STAFF_PAGE_PASSWORD:
+            request.session['staff_access'] = True
+            messages.success(request, 'Access granted!')
+            return redirect('modifiers:dashboard')
+        else:
+            messages.error(request, 'Incorrect password. Please try again.')
+    
+    return render(request, 'modifiers/enter_password.html')
+
+
+def staff_logout(request):
+    """View для виходу зі staff режиму"""
+    request.session.pop('staff_access', None)
+    messages.info(request, 'You have been logged out.')
+    return redirect('modifiers:enter_password')
+
+
 def dashboard(request):
+    """Dashboard view з перевіркою доступу"""
+    if not request.session.get('staff_access', False):
+        return redirect('modifiers:enter_password')
+    
     sections = []
     for key, (model, form_class) in CATEGORY_MODELS.items():
         items = model.objects.filter(is_active=True).order_by('order', 'name')
@@ -39,6 +81,7 @@ def dashboard(request):
 
 
 
+@staff_only
 def archive(request):
     coffee_items = Coffee.objects.filter(is_active=False).order_by('group', 'name')
     coffee_groups = ['basic', 'alternative', 'other', 'addon']
@@ -54,6 +97,7 @@ def archive(request):
     return render(request, 'modifiers/archive.html', {'sections': sections})
 
 
+@staff_only
 def add_item(request, category):
     pair = CATEGORY_MODELS.get(category)
     if not pair:
@@ -80,6 +124,7 @@ def add_item(request, category):
     )
 
 
+@staff_only
 def edit_item(request, category, pk):
     pair = CATEGORY_MODELS.get(category)
     if not pair:
@@ -111,6 +156,7 @@ def edit_item(request, category, pk):
     )
 
 
+@staff_only
 def delete_item(request, category, pk):
     pair = CATEGORY_MODELS.get(category)
     if not pair:
@@ -129,6 +175,7 @@ def delete_item(request, category, pk):
     )
 
 
+@staff_only
 def archive_item(request, category, pk):
     pair = CATEGORY_MODELS.get(category)
     if not pair:
@@ -140,6 +187,7 @@ def archive_item(request, category, pk):
     return redirect('modifiers:dashboard')
 
 
+@staff_only
 def restore_item(request, category, pk):
     pair = CATEGORY_MODELS.get(category)
     if not pair:

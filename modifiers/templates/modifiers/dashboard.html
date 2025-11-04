@@ -9,7 +9,10 @@
 {% block content %}
 {% csrf_token %}
 <div class="dashboard-container">
-    <h2>Dashboard</h2>
+    <div class="dashboard-header">
+        <h2>Untitled coffee</h2>
+        <a href="{% url 'modifiers:staff_logout' %}" class="btn logout-btn">Log out</a>
+    </div>
 
     <p><a href="{% url 'modifiers:archive' %}" class="btn">View Archive</a></p>
 

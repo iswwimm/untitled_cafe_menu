@@ -18,6 +18,18 @@
     text-align: center;
 }
 
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+    margin: 0;
+    text-align: left;
+}
+
 .dashboard-container p a.btn {
     display: inline-block;
     margin-bottom: 20px;
@@ -257,6 +269,32 @@ a.cancel-btn:hover {
 }
 
 /* ===================== */
+/* 🚪 Logout Button */
+/* ===================== */
+a.logout-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #95a5a6;
+    color: #fff;
+    border-radius: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+a.logout-btn:hover {
+    background-color: #7f8c8d;
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+a.logout-btn:active {
+    transform: scale(0.98);
+}
+
+/* ===================== */
 /* ✅ Checkbox styles for allergens */
 /* ===================== */
 .allergens-checkboxes {
@@ -419,8 +457,26 @@ a.cancel-btn:hover {
     }
 
     button.btn, a.cancel-btn {
-        width: 100%;
         margin-bottom: 10px;
+    }
+
+    .dashboard-header {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .dashboard-header h2 {
+        flex: 1;
+        text-align: left;
+        margin: 0;
+    }
+
+    a.logout-btn {
+        flex-shrink: 0;
+        padding: 8px 14px;
+        font-size: 0.85rem;
+        white-space: nowrap;
     }
 }
 
@@ -448,4 +504,209 @@ a.cancel-btn:hover {
         font-size: 0.8rem;
         padding: 5px 8px;
     }
+
+    .dashboard-header {
+        gap: 8px;
+    }
+
+    .dashboard-header h2 {
+        font-size: 1.2rem;
+    }
+
+    a.logout-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ===================== */
+/* 📦 Archive Page */
+/* ===================== */
+.archive-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.archive-container h1 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    text-align: center;
+    font-weight: 600;
+}
+
+.archive-container > h2 {
+    font-size: 1.8rem;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: #34495e;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.archive-container > h2:first-of-type {
+    margin-top: 20px;
+}
+
+.archive-container h3 {
+    font-size: 1.3rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: #555;
+    padding-left: 12px;
+    border-left: 3px solid #6b4226;
+}
+
+.archive-container h3:first-of-type {
+    margin-top: 20px;
+}
+
+.archive-container ul.item-list {
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+
+/* Group spacing - each h3 + ul.item-list forms a group */
+.archive-container h3 + ul.item-list {
+    margin-bottom: 35px;
+}
+
+.archive-container ul.item-list:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Section spacing - each h2 and its content forms a section */
+.archive-container > h2 ~ h2 {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #e8e8e8;
+}
+
+/* Spacing for item lists that are direct children (not coffee groups) */
+.archive-container > h2 + ul.item-list {
+    margin-bottom: 40px;
+}
+
+/* Empty state */
+.archive-container ul.item-list li.item:only-child {
+    text-align: center;
+    color: #95a5a6;
+    font-style: italic;
+    background-color: #f9f9f9;
+}
+
+/* Responsive for archive */
+@media (max-width: 768px) {
+    .archive-container {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    .archive-container h1 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+
+    .archive-container > h2 {
+        font-size: 1.5rem;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+    .archive-container h3 {
+        font-size: 1.2rem;
+        margin-top: 20px;
+        margin-bottom: 12px;
+    }
+
+    .archive-container > section,
+    .archive-container > div {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .archive-container h1 {
+        font-size: 1.6rem;
+    }
+
+    .archive-container > h2 {
+        font-size: 1.3rem;
+    }
+
+    .archive-container h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* ===================== */
+/* 📝 Messages */
+/* ===================== */
+.message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.message-error {
+    background-color: #fee;
+    color: #c33;
+}
+
+.message-success {
+    background-color: #efe;
+    color: #3c3;
+}
+
+.message-info {
+    background-color: #eef;
+    color: #33c;
+}
+
+/* ===================== */
+/* 🔒 Password Input */
+/* ===================== */
+.password-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input {
+    width: 100%;
+    padding: 8px 45px 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.password-input:focus {
+    border-color: #3498db;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.toggle-password-btn:active {
+    background-color: #e0e0e0;
 }

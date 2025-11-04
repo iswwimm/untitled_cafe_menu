@@ -112,7 +112,6 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;                
-  font-family: 'Montserrat Classic', sans-serif;
   font-size: clamp(0.4rem, 1.5vw, 0.8rem);                 
   color: #293378;                               
   margin-top: 150px;              
