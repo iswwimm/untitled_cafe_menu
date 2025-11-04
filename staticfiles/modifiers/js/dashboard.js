@@ -24,6 +24,19 @@ function initDashboardDragAndDrop() {
     });
     
     // Mobile touch events
+    let globalIsDragging = false;
+    let scrollPosition = 0;
+    
+    // Prevent body scroll during drag
+    function preventBodyScroll(e) {
+        if (globalIsDragging) {
+            e.preventDefault();
+        }
+    }
+    
+    // Add touchmove listener to body to prevent scrolling during drag
+    document.body.addEventListener('touchmove', preventBodyScroll, { passive: false });
+    
     draggableItems.forEach(item => {
         let touchStartY = 0;
         let touchCurrentY = 0;
@@ -38,7 +51,15 @@ function initDashboardDragAndDrop() {
         item.addEventListener('touchmove', (e) => {
             if (!isDragging && Math.abs(e.touches[0].clientY - touchStartY) > 10) {
                 isDragging = true;
+                globalIsDragging = true;
                 item.classList.add('dragging');
+                
+                // Save current scroll position and prevent body scroll
+                scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                document.body.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollPosition}px`;
+                document.body.style.width = '100%';
             }
             
             if (isDragging) {
@@ -72,6 +93,30 @@ function initDashboardDragAndDrop() {
                     }
                 }
             }
+            
+            // Restore body scroll
+            isDragging = false;
+            globalIsDragging = false;
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, scrollPosition);
+            
+            item.classList.remove('dragging', 'touch-dragging');
+            item.style.transform = '';
+            clearDropHighlights();
+        });
+        
+        item.addEventListener('touchcancel', (e) => {
+            // Restore body scroll on cancel
+            isDragging = false;
+            globalIsDragging = false;
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, scrollPosition);
             
             item.classList.remove('dragging', 'touch-dragging');
             item.style.transform = '';

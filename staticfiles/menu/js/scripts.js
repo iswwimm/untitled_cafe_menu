@@ -461,6 +461,15 @@ function initToastModal() {
         });
     }
     
+    // Close allergens modal button
+    const allergensCloseBtn = document.querySelector('#allergensModal .allergens-close');
+    if (allergensCloseBtn && allergensModal) {
+        allergensCloseBtn.addEventListener('click', function() {
+            allergensModal.style.display = 'none';
+            resetAllToastItems();
+        });
+    }
+    
     // Close on overlay click
     window.addEventListener('click', function(event) {
         if (modal && event.target === modal) {
@@ -595,6 +604,15 @@ function initSweetModal() {
     if (closeBtn && modal) {
         closeBtn.addEventListener('click', function() {
             modal.style.display = 'none';
+            resetAllSweetItems();
+        });
+    }
+    
+    // Close allergens modal button
+    const allergensCloseBtn = document.querySelector('#allergensModal .allergens-close');
+    if (allergensCloseBtn && allergensModal) {
+        allergensCloseBtn.addEventListener('click', function() {
+            allergensModal.style.display = 'none';
             resetAllSweetItems();
         });
     }
