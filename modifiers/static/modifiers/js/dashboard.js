@@ -26,32 +26,68 @@ function initDashboardDragAndDrop() {
     // Mobile touch events
     let globalIsDragging = false;
     let scrollPosition = 0;
+    let activeDragItem = null;
+    let dragStartTime = 0;
     
     // Prevent body scroll during drag
     function preventBodyScroll(e) {
         if (globalIsDragging) {
             e.preventDefault();
+            return false;
         }
     }
     
-    // Add touchmove listener to body to prevent scrolling during drag
-    document.body.addEventListener('touchmove', preventBodyScroll, { passive: false });
+    // Prevent touch actions on draggable items during drag
+    function preventTouchAction(e) {
+        if (globalIsDragging) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+    }
     
     draggableItems.forEach(item => {
         let touchStartY = 0;
+        let touchStartX = 0;
         let touchCurrentY = 0;
         let isDragging = false;
+        let touchIdentifier = null;
+        let initialTransform = '';
         
         item.addEventListener('touchstart', (e) => {
+            // Only handle first touch
+            if (e.touches.length !== 1) return;
+            
+            // Don't start drag if clicking on a button or link
+            const clickTarget = e.target.closest('a, button, input');
+            if (clickTarget) {
+                return;
+            }
+            
+            touchIdentifier = e.touches[0].identifier;
             touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+            dragStartTime = Date.now();
             item.classList.add('touch-dragging');
             isDragging = false;
+            activeDragItem = item;
+            initialTransform = item.style.transform || '';
         }, { passive: true });
         
         item.addEventListener('touchmove', (e) => {
-            if (!isDragging && Math.abs(e.touches[0].clientY - touchStartY) > 10) {
+            // Only handle the touch we started with
+            if (!touchIdentifier || e.touches.length !== 1) return;
+            if (e.touches[0].identifier !== touchIdentifier) return;
+            
+            const touch = e.touches[0];
+            const deltaY = Math.abs(touch.clientY - touchStartY);
+            const deltaX = Math.abs(touch.clientX - touchStartX);
+            
+            // Start dragging if moved more than 10px vertically (and not horizontally scrolling)
+            if (!isDragging && deltaY > 10 && deltaY > deltaX) {
                 isDragging = true;
                 globalIsDragging = true;
+                activeDragItem = item;
                 item.classList.add('dragging');
                 
                 // Save current scroll position and prevent body scroll
@@ -60,30 +96,49 @@ function initDashboardDragAndDrop() {
                 document.body.style.position = 'fixed';
                 document.body.style.top = `-${scrollPosition}px`;
                 document.body.style.width = '100%';
+                document.body.style.height = '100%';
+                
+                // Prevent default to stop scrolling
+                e.preventDefault();
             }
             
             if (isDragging) {
                 e.preventDefault();
-                touchCurrentY = e.touches[0].clientY;
+                e.stopPropagation();
+                touchCurrentY = touch.clientY;
                 const deltaY = touchCurrentY - touchStartY;
                 item.style.transform = `translateY(${deltaY}px)`;
                 
                 // Find drop target
-                const targetElement = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+                const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
                 const targetItem = targetElement ? targetElement.closest('.draggable-item') : null;
                 
                 if (targetItem && targetItem !== item) {
                     highlightDropTarget(item, targetItem);
+                } else {
+                    clearDropHighlights();
                 }
             }
         }, { passive: false });
         
         item.addEventListener('touchend', (e) => {
+            // Only handle the touch we started with
+            if (!touchIdentifier) return;
+            const touch = e.changedTouches[0];
+            if (touch && touch.identifier !== touchIdentifier) return;
+            
+            const wasDragging = isDragging;
+            const dragDuration = Date.now() - dragStartTime;
+            
+            // Check if we ended on a button/link
+            const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
+            const clickTarget = targetElement ? targetElement.closest('a, button, input') : null;
+            
             if (isDragging) {
-                const targetElement = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
                 const targetItem = targetElement ? targetElement.closest('.draggable-item') : null;
                 
-                if (targetItem && targetItem !== item) {
+                // Only process drop if not clicking on a button/link
+                if (targetItem && targetItem !== item && !clickTarget) {
                     const targetGroup = targetItem.closest('.draggable-list');
                     const sourceGroup = item.closest('.draggable-list');
                     
@@ -94,35 +149,67 @@ function initDashboardDragAndDrop() {
                 }
             }
             
-            // Restore body scroll
-            isDragging = false;
-            globalIsDragging = false;
-            document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            window.scrollTo(0, scrollPosition);
+            // Always clean up FIRST to restore normal click behavior
+            cleanupDrag(item, wasDragging);
             
-            item.classList.remove('dragging', 'touch-dragging');
-            item.style.transform = '';
-            clearDropHighlights();
-        });
+            // After cleanup, allow normal click behavior for buttons/links
+            // The browser's native click will fire after touchend if we didn't prevent default
+            if (clickTarget && !wasDragging) {
+                // Don't prevent default - let the click happen naturally
+                // The cleanup already happened, so buttons should work now
+            }
+        }, { passive: false });
         
         item.addEventListener('touchcancel', (e) => {
-            // Restore body scroll on cancel
+            cleanupDrag(item, isDragging);
+        }, { passive: false });
+        
+        function cleanupDrag(item, wasDragging) {
+            // Clean up item styles first
+            item.classList.remove('dragging', 'touch-dragging');
+            item.style.transform = initialTransform || '';
+            clearDropHighlights();
+            
+            // Reset dragging state IMMEDIATELY to allow button clicks
             isDragging = false;
             globalIsDragging = false;
+            activeDragItem = null;
+            
+            // Restore body scroll and position
             document.body.style.overflow = '';
             document.body.style.position = '';
             document.body.style.top = '';
             document.body.style.width = '';
-            window.scrollTo(0, scrollPosition);
+            document.body.style.height = '';
             
-            item.classList.remove('dragging', 'touch-dragging');
-            item.style.transform = '';
-            clearDropHighlights();
-        });
+            // Restore scroll position after body styles are reset
+            if (wasDragging) {
+                // Use requestAnimationFrame to ensure styles are applied first
+                requestAnimationFrame(() => {
+                    window.scrollTo(0, scrollPosition);
+                });
+            }
+            
+            // Reset touch identifier after a tiny delay to ensure event propagation completes
+            setTimeout(() => {
+                touchIdentifier = null;
+            }, 0);
+            
+            // Force a repaint to ensure browser resets touch state
+            void item.offsetHeight;
+        }
     });
+    
+    // Prevent any touch events from propagating during drag
+    document.addEventListener('touchmove', (e) => {
+        if (globalIsDragging) {
+            // Only prevent if not on a button/link
+            const isButtonOrLink = e.target.closest('a, button, input');
+            if (!isButtonOrLink) {
+                e.preventDefault();
+            }
+        }
+    }, { passive: false, capture: true });
     
     function handleDragStart(e) {
         draggedElement = e.target;

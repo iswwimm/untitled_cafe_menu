@@ -115,11 +115,42 @@ ul.item-list li.item {
     margin-bottom: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     transition: transform 0.2s, box-shadow 0.2s;
+    /* Allow pan-y for vertical scrolling, but prevent during drag */
+    touch-action: pan-y;
 }
 
 ul.item-list li.item:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Dragging states */
+ul.item-list li.item.dragging,
+ul.item-list li.item.touch-dragging {
+    opacity: 0.7;
+    z-index: 1000;
+    touch-action: none;
+    cursor: grabbing;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: none;
+}
+
+ul.item-list li.item.touch-dragging {
+    pointer-events: auto;
+}
+
+/* Drop target highlight */
+ul.item-list li.item.drop-target {
+    border: 2px dashed #3498db;
+    background-color: #ebf5fb;
+}
+
+/* Ensure buttons remain clickable during and after drag */
+.actions a.btn {
+    touch-action: manipulation;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 ul.item-list li.item img.thumbnail {
