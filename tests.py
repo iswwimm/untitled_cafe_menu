@@ -269,12 +269,22 @@ class ViewTests(TestCase):
         self.assertIn('error', response_data)
 
 
-class ModifierViewTests(TestCase):
+class StaffAuthMixin:
+    """Helper mixin to authenticate staff-only views via session."""
+
+    def authenticate_staff(self):
+        session = self.client.session
+        session['is_staff_authenticated'] = True
+        session.save()
+
+
+class ModifierViewTests(StaffAuthMixin, TestCase):
     """Test modifier dashboard views"""
     
     def setUp(self):
         """Set up test data"""
         self.client = Client()
+        self.authenticate_staff()
         
         # Create test data
         self.coffee = Coffee.objects.create(
@@ -630,12 +640,13 @@ class URLTests(TestCase):
         self.assertEqual(resolver.view_name, 'modifiers:archive')
 
 
-class IntegrationTests(TestCase):
+class IntegrationTests(StaffAuthMixin, TestCase):
     """Test complete workflows"""
     
     def setUp(self):
         """Set up test data"""
         self.client = Client()
+        self.authenticate_staff()
 
     def test_complete_coffee_workflow(self):
         """Test complete coffee management workflow"""
@@ -794,12 +805,13 @@ class IntegrationTests(TestCase):
         self.assertEqual(coffee3.order, 0)
 
 
-class EdgeCaseTests(TestCase):
+class EdgeCaseTests(StaffAuthMixin, TestCase):
     """Test edge cases and error conditions"""
     
     def setUp(self):
         """Set up test data"""
         self.client = Client()
+        self.authenticate_staff()
 
     def test_empty_menu_pages(self):
         """Test menu pages with no items"""

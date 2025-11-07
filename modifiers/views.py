@@ -1,10 +1,10 @@
+import os
+
 from django.shortcuts import render, get_object_or_404, redirect
-from django.conf import settings
 from django.contrib import messages
 from functools import wraps
 from menu.models import Coffee, Toast, Sweet
 from .forms import CoffeeForm, ToastForm, SweetForm
-from collections import defaultdict
 
 CATEGORY_MODELS = {
     'coffee': (Coffee, CoffeeForm),
@@ -24,7 +24,7 @@ def staff_only(view_func):
     """Декоратор для перевірки доступу до staff сторінок"""
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
-        if not request.session.get('staff_access', False):
+        if not request.session.get('is_staff_authenticated', False):
             return redirect('modifiers:enter_password')
         return view_func(request, *args, **kwargs)
     return wrapper
@@ -32,31 +32,35 @@ def staff_only(view_func):
 
 def enter_password(request):
     """View для введення пароля доступу"""
-    if request.session.get('staff_access', False):
-        return redirect('modifiers:dashboard')
-    
+    if request.session.get('is_staff_authenticated', False):
+        return redirect('/modifiers/')
+
+    error_message = None
+    correct_password = os.getenv("STAFF_PAGE_PASSWORD") or os.getenv("RENDER")
+
     if request.method == 'POST':
         password = request.POST.get('password', '')
-        if password == settings.STAFF_PAGE_PASSWORD:
-            request.session['staff_access'] = True
+        if password and password == correct_password:
+            request.session['is_staff_authenticated'] = True
             messages.success(request, 'Access granted!')
-            return redirect('modifiers:dashboard')
+            return redirect('/modifiers/')
         else:
-            messages.error(request, 'Incorrect password. Please try again.')
-    
-    return render(request, 'modifiers/enter_password.html')
+            error_message = 'Incorrect password. Please try again.'
+
+    context = {'error_message': error_message}
+    return render(request, 'modifiers/enter_password.html', context)
 
 
 def staff_logout(request):
     """View для виходу зі staff режиму"""
-    request.session.pop('staff_access', None)
+    request.session.pop('is_staff_authenticated', None)
     messages.info(request, 'You have been logged out.')
     return redirect('modifiers:enter_password')
 
 
 def dashboard(request):
     """Dashboard view з перевіркою доступу"""
-    if not request.session.get('staff_access', False):
+    if not request.session.get('is_staff_authenticated', False):
         return redirect('modifiers:enter_password')
     
     sections = []

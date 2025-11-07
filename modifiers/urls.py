@@ -4,8 +4,8 @@ from . import views
 app_name = 'modifiers'
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
     path('enter-password/', views.enter_password, name='enter_password'),
+    path('', views.dashboard, name='dashboard'),
     path('logout/', views.staff_logout, name='staff_logout'),
     path('archive/', views.archive, name='archive'),
 

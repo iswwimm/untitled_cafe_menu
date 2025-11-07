@@ -741,3 +741,112 @@ a.logout-btn:active {
 .toggle-password-btn:active {
     background-color: #e0e0e0;
 }
+
+/* ===================== */
+/* 🔐 Staff Login Page */
+/* ===================== */
+.staff-login-page {
+    font-family: 'Montserrat Alternates', sans-serif;
+    background: linear-gradient(135deg, rgba(243, 236, 231, 0.96), rgba(232, 219, 204, 0.98));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #293378;
+}
+
+.staff-login-page .login-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(41, 51, 120, 0.12);
+    padding: 36px 32px;
+    width: 100%;
+    max-width: 360px;
+    backdrop-filter: blur(12px);
+}
+
+.staff-login-page .login-card h1 {
+    font-size: 1.6rem;
+    margin-bottom: 28px;
+    text-align: center;
+    letter-spacing: -0.5px;
+    text-transform: lowercase;
+}
+
+.staff-login-page .login-card label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #6b4226;
+}
+
+.staff-login-page .login-card input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(107, 66, 38, 0.25);
+    border-radius: 12px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #293378;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.staff-login-page .login-card button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 14px;
+    background-color: #6b4226;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    letter-spacing: 0.4px;
+    text-transform: lowercase;
+}
+
+.staff-login-page .login-card button:hover {
+    background-color: #a67853;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(166, 120, 83, 0.25);
+}
+
+.staff-login-page .error-message {
+    color: #c53030;
+    margin-top: 18px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.staff-login-page .login-card input[type="password"]:focus {
+    border-color: #6b4226;
+    box-shadow: 0 0 0 4px rgba(166, 120, 83, 0.18);
+    outline: none;
+}
+
+.staff-login-page .login-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.staff-login-page .login-card small {
+    display: block;
+    margin-top: 12px;
+    font-size: 0.78rem;
+    color: rgba(41, 51, 120, 0.7);
+}
+
+@media (max-width: 480px) {
+    .staff-login-page .login-card {
+        padding: 28px 24px;
+        margin: 20px;
+    }
+
+    .staff-login-page .login-card h1 {
+        font-size: 1.4rem;
+    }
+}
