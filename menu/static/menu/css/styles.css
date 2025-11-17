@@ -31,14 +31,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 150px;
-    margin-bottom: 20px;
 }
 
 .logo-img {
     position: absolute;
-    width: 65%;
-    max-width: 450px;
+    width: 55%;
+    max-width: 550px;
     height: auto;
 }
 
@@ -46,8 +44,8 @@ body {
 /* --- 📱 Mobile devices --- */
 @media (max-width: 600px) {
   .logo-img {
-    width: 55%;
-    max-width: 450px;        
+    width: 65%;
+    max-width: 350px;        
   }
 
   .logo {
@@ -70,18 +68,20 @@ body {
 }
 
 
+/* List menu */
+
 .menu-links {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  margin-top: 50px;
+  margin-top: 8%;
 }
 
 .menu-links a {
   position: relative;
   font-family: 'Montserrat Alternates', sans-serif;
-  font-size: clamp(0.2rem, 4vw, 2.0rem);
+  font-size: clamp(0.2rem, 5vw, 2.5rem);
   color: #293378;
   text-decoration: none;
   transition: transform 0.1s ease, color 0.2s ease;
@@ -114,8 +114,17 @@ body {
   text-align: center;                
   font-size: clamp(0.4rem, 1.5vw, 0.8rem);                 
   color: #293378;                               
-  margin-top: 150px;              
+  margin-top: 10%;              
 }
+
+/* Responsive */
+/* --- 📱 Mobile devices --- */
+@media (max-width: 1024px) {
+  .info {
+    margin-top: 15%;              
+  }
+}
+
 
 .info p {
   margin: 0.5px;                     
@@ -128,7 +137,7 @@ body {
 /* ☕ Coffee page */
 .menu-page {
     text-align: left;
-    padding: 40px 30px 40px;
+    padding: 50px 90px 20px;
     color: #293378;
     min-height: 100vh;
 }
@@ -510,6 +519,10 @@ body {
     }
 
     /* Menu styles */
+    .menu-page {
+    padding: 40px 50px 20px;
+
+    }
     .menu-list {
         padding: 20px 50px;
         max-width: 450px;
@@ -560,6 +573,9 @@ body {
     }
 
     /* Menu styles */
+    .menu-page {
+    padding: 40px 50px 20px;
+    }
     .menu-list {
         padding: 20px 40px;
         max-width: 100%;

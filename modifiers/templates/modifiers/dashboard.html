@@ -1,4 +1,4 @@
-{% extends 'menu/base.html' %}
+﻿{% extends 'menu/base.html' %}
 {% load static %}
 
 {% block extra_head %}
@@ -31,7 +31,7 @@
                             {% if item.image %}
                                 <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
                             {% endif %}
-                            <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}{% if item.temperature %} — {{ item.get_temperature_display }}{% endif %}</span>
+                            <span>{{ item.name }}</span>
                             <div class="actions">
                                 <a href="{% url 'modifiers:edit_item' section.name item.pk %}" class="btn">Edit</a>
                                 <a href="{% url 'modifiers:archive_item' section.name item.pk %}" class="btn">Archive</a>
@@ -50,7 +50,7 @@
                         {% if item.image %}
                             <img src="{{ item.image.url }}" class="thumbnail" alt="{{ item.name }}">
                         {% endif %}
-                        <span>{{ item.name }} — {{ item.price_display }} {{ currency|default:"₴" }}</span>
+                        <span>{{ item.name }}</span>
                         <div class="actions">
                             <a href="{% url 'modifiers:edit_item' section.name item.pk %}" class="btn">Edit</a>
                             <a href="{% url 'modifiers:archive_item' section.name item.pk %}" class="btn">Archive</a>

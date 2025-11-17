@@ -162,7 +162,7 @@ ul.item-list li.item img.thumbnail {
 }
 
 ul.item-list li.item span {
-    flex: 1 1 150px;
+    flex: 1 1 auto;
     font-size: 0.95rem;
     color: #2c3e50;
     margin-right: 10px;
@@ -227,6 +227,7 @@ ul.item-list li.item span {
 /* 🖼 Form Styling */
 /* ===================== */
 .form-container {
+    max-width: 700px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -261,6 +262,7 @@ ul.item-list li.item span {
     font-size: 0.95rem;
     outline: none;
     transition: border 0.3s;
+    width: 80%;
 }
 
 .form-group input:focus,
@@ -348,12 +350,12 @@ a.logout-btn:active {
 }
 
 .allergens-checkboxes li {
-    margin: 0;
     display: flex;
     align-items: center;
-    padding: 6px 12px;
+    gap: 6px;          
+    margin: 0;
+    padding: 4px 8px;  
     border-radius: 5px;
-    transition: background-color 0.2s ease;
     cursor: pointer;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
@@ -375,18 +377,19 @@ a.logout-btn:active {
 }
 
 .allergens-checkboxes input[type="checkbox"] {
-    margin-right: 8px;
+    margin: 0;   /* прибираємо зайві відступи браузера */
     transform: scale(1.1);
-    cursor: pointer;
 }
 
 .allergens-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 6px;    
     margin: 0;
-    font-weight: normal;
     cursor: pointer;
     white-space: nowrap;
-    color: inherit;
 }
+
 
 .allergens-checkboxes label:not([for]) {
     display: inline;
@@ -782,7 +785,6 @@ a.logout-btn:active {
 }
 
 .staff-login-page .login-card input[type="password"] {
-    width: 100%;
     padding: 12px;
     border: 1px solid rgba(107, 66, 38, 0.25);
     border-radius: 12px;
